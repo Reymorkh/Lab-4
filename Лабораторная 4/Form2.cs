@@ -117,7 +117,6 @@ namespace Лабораторная_4
             fromTop = 100;
         }
 
-
         public Form2()
         {
             InitializeComponent();
@@ -131,8 +130,6 @@ namespace Лабораторная_4
 
 
         }
-
-
 
         private void ButtonOnClick(object sender, EventArgs eventArgs)
         {
@@ -231,7 +228,6 @@ namespace Лабораторная_4
                 "Для оперестановки элементов нажмите на оба элемента, которые хотите поменять местами.", "Help");
         }
 
-
         private void DelMax_Click(object sender, EventArgs e)
         {
             if (Form1.arrayLength != 0)
@@ -292,6 +288,8 @@ namespace Лабораторная_4
             }
         }
 
+
+
         public void AddButton()
         {
 
@@ -316,8 +314,7 @@ namespace Лабораторная_4
             Controls.Add(newButton);
         }     // не работает
 
-
-       public void ButtonRewrite()
+        public void ButtonRewrite()
        {
             for (int i = 0; i < Form1.arrayLength; i++)
             {
@@ -361,7 +358,6 @@ namespace Лабораторная_4
             //    fromTop += 40;
             } // не работает
         
-
         public void ButtonPrinterv2()
         {
             for (int i = 0; i < Form1.arrayLength - 10; i += 10)

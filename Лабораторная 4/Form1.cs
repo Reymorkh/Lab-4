@@ -11,10 +11,6 @@ namespace Лабораторная_4
         public static Random random = new Random();
         public int hasBeenAdded = 0;
 
-
-
-
-
         int Partition(int[] array, int minIndex, int maxIndex)
         {
             var pen = minIndex - 1;
@@ -32,7 +28,6 @@ namespace Лабораторная_4
             return pen;
         }
 
-
         int[] HoarahSort(int[] array, int indexLeft, int indexRight)
         {
             if (indexLeft >= indexRight)
@@ -46,11 +41,7 @@ namespace Лабораторная_4
 
             return array;
         }
-
-
-
-
-
+        
         public static void SwapInt(ref int a, ref int b)
         {
             int temp = a;
@@ -94,17 +85,9 @@ namespace Лабораторная_4
                 }
         }
 
-
-
-
-
         public Form1()
         {
-
             InitializeComponent();
-
-
-
         }
 
         private void PlaceSwapper_Click(object sender, EventArgs e)
@@ -134,6 +117,7 @@ namespace Лабораторная_4
                 textBox1.ForeColor = Color.Black;
             }
         }
+
         private void textBox1_Leave(object sender, EventArgs e)
         {
             if (textBox1.Text == "")
@@ -220,8 +204,7 @@ namespace Лабораторная_4
         {
 
         }
-
-
+        
         private void label1_Click(object sender, EventArgs e)
         {
 
