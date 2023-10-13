@@ -5,11 +5,11 @@ namespace Лабораторная_4
 {
     public partial class Form1 : Form
     {
+
         public static int arrayLength = 0, cycleRight, cycleDown;
         public static int[] arrayMain;
         public static Random random = new Random();
         public int hasBeenAdded = 0;
-        public bool isSorted = false;
 
         int Partition(int[] array, int minIndex, int maxIndex)
         {
@@ -41,7 +41,7 @@ namespace Лабораторная_4
 
             return array;
         }
-
+        
         public static void SwapInt(ref int a, ref int b)
         {
             int temp = a;
@@ -51,38 +51,38 @@ namespace Лабораторная_4
 
         public void ArrayPrinter()
         {
-            MainWindow.Text = "Длина массива записана как: " + arrayLength;
+            MainWindow.Text = "Длина массива записана как : " + arrayLength;
             MainWindow.Text += Environment.NewLine;
-            if (arrayLength != 0)
+            for (int i = 0; i < arrayMain.Length; i++)
+                if (arrayMain[i] != 0)
+                    if (arrayMain[i] % 2 == 0)
+                    {
+                        MainWindow.Text += "Первое чётное число: " + arrayMain[i] + " с индексом: " + i + Environment.NewLine;
+                        break;
+                    }
+
+
+
+            for (int i = 0; i < arrayLength - 10; i += 10)
             {
-                for (int i = 0; i < arrayMain.Length; i++)
-                    if (arrayMain[i] != 0)
-                        if (arrayMain[i] % 2 == 0)
-                        {
-                            MainWindow.Text += "Первое чётное число: " + arrayMain[i] + " с индексом: " + i + Environment.NewLine;
-                            break;
-                        }
-                for (int i = 0; i < arrayLength - 10; i += 10)
+                for (int j = 0; j < 10; j++)
                 {
-                    for (int j = 0; j < 10; j++)
-                    {
-                        MainWindow.Text += arrayMain[i + j] + " ";
-                    }
-                    MainWindow.Text += Environment.NewLine;
+                    MainWindow.Text += arrayMain[i + j] + " ";
                 }
-                if (arrayLength % 10 != 0)
-                    for (int j = arrayLength - arrayLength % 10; j < arrayLength; j++)
-                    {
-                        MainWindow.Text += arrayMain[j] + " ";
-
-                    }
-                else
-                    for (int j = arrayLength - 10; j < arrayLength; j++)
-                    {
-                        MainWindow.Text += arrayMain[j] + " ";
-
-                    }
+                MainWindow.Text += Environment.NewLine;
             }
+            if (arrayLength % 10 != 0)
+                for (int j = arrayLength - arrayLength % 10; j < arrayLength; j++) //починить. не печатает, если чисел кратное десяти
+                {
+                    MainWindow.Text += arrayMain[j] + " ";
+
+                }
+            else
+                for (int j = arrayLength - 10; j < arrayLength; j++) //починить. не печатает, если чисел кратное десяти
+                {
+                    MainWindow.Text += arrayMain[j] + " ";
+
+                }
         }
 
         public Form1()
@@ -92,10 +92,20 @@ namespace Лабораторная_4
 
         private void PlaceSwapper_Click(object sender, EventArgs e)
         {
-            Form2 f = new Form2();
-            f.ShowDialog();
-            f.Dispose();
-            ArrayPrinter();
+            if (arrayLength > 0)
+            {
+                Form2 f = new Form2();
+                f.ShowDialog();
+            }
+            else
+                MessageBox.Show("А массив вы ещё или уже не создали.", "Предупреждение");
+            if (arrayLength > 0)
+                ArrayPrinter();
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
 
@@ -149,6 +159,7 @@ namespace Лабораторная_4
 
             if (arrayLength == 0)
             {
+                MainWindow.Text = "Введите длину массива, больше, чем ноль, и желательно меньше, чем 2 147 483 647.";
                 SearchOut.Visible = false;
                 SearchButton.Visible = false;
             }
@@ -156,9 +167,9 @@ namespace Лабораторная_4
             {
                 SearchOut.Visible = true;
                 SearchButton.Visible = true;
-                
+                ArrayPrinter();
             }
-            ArrayPrinter();
+
 
         }
 
@@ -181,7 +192,22 @@ namespace Лабораторная_4
                 ArrayPrinter();
             }
             else
-                MessageBox.Show("Массива нет.", "Ошибка");
+                MessageBox.Show("Массива нет.", "Предупреждение");
+        }
+
+        private void MainWindow_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void PlusButton_Click(object sender, EventArgs e)
@@ -212,23 +238,25 @@ namespace Лабораторная_4
                     arrayLength -= minusX;
                     hasBeenAdded -= minusX;
                     Array.Resize(ref arrayMain, arrayLength);
-                    if (arrayLength == 0)
-                    { 
+                    if (arrayLength != 0)
+                        ArrayPrinter();
+                    else
+                    {
                         SearchOut.Visible = false;
                         SearchButton.Visible = false;
+                        MainWindow.Text = "Введите длину массива, больше, чем ноль, и желательно меньше, чем 2 147 483 647.";
                     }
-                    ArrayPrinter();
                 }
                 else
-                    MessageBox.Show("Либо нечисло, либо вы хотите вычесть больше, чем есть длины.", "Ошибка");
+                    MessageBox.Show("Либо нечисло, либо вы хотите вычесть больше, чем есть длины.", "Предупреждение");
         }
 
         private void NullRandom_Click(object sender, EventArgs e)
         {
+            if (hasBeenAdded == 0)
+                MessageBox.Show("Либо массива нет, либо после добавления элементов вы нажали сортировку.", "Предупреждение");
             if (arrayLength != 0)
             {
-                if (hasBeenAdded == 0)
-                MessageBox.Show("Либо массива нет, либо после добавления элементов вы нажали сортировку.", "Ошибка");
                 for (int i = arrayLength - hasBeenAdded; i < arrayLength; i++)
                 {
                     if (arrayMain[i] == 0)
@@ -237,6 +265,12 @@ namespace Лабораторная_4
                 hasBeenAdded = 0;
                 ArrayPrinter();
             }
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
@@ -261,7 +295,7 @@ namespace Лабораторная_4
                 ArrayPrinter();
             }
             else
-                MessageBox.Show("Массива нет.", "Ошибка");
+                MessageBox.Show("Массива нет.", "Предпреждение");
         }
 
         private void SortButton_Click(object sender, EventArgs e)
@@ -273,50 +307,14 @@ namespace Лабораторная_4
                 ArrayPrinter();
             }
             else
-                MessageBox.Show("Массива нет.", "Ошибка");
+                MessageBox.Show("Массива нет.", "Предпреждение");
         }
 
         private void Form1_Enter(object sender, EventArgs e)
         {
-            if (arrayLength != 0)
-                ArrayPrinter();
+            if (arrayLength !=0)
+            ArrayPrinter();
         }
-        private void ArrayEnterButton_Click(object sender, EventArgs e)
-        {
-            if (arrayLength != 0)
-            {
-                Form4 gg = new Form4();
-                gg.ShowDialog();
-                gg.Dispose();
-                ArrayPrinter();
-            }
-            else
-                MessageBox.Show("Массив-то создайте.", "Ошибка");
-        }
-
-        //пустые события
-        private void MainWindow_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
     }
 
 }
