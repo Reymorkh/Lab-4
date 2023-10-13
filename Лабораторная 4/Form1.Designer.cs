@@ -44,6 +44,7 @@
             SearchOut = new Label();
             ReverseButton = new Button();
             SortButton = new Button();
+            ArrayEnterButton = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             SuspendLayout();
             // 
@@ -101,7 +102,7 @@
             // 
             // RandomFiller
             // 
-            RandomFiller.Location = new Point(645, 37);
+            RandomFiller.Location = new Point(645, 50);
             RandomFiller.Name = "RandomFiller";
             RandomFiller.Size = new Size(126, 23);
             RandomFiller.TabIndex = 4;
@@ -159,7 +160,7 @@
             // 
             // NullRandom
             // 
-            NullRandom.Location = new Point(645, 66);
+            NullRandom.Location = new Point(645, 79);
             NullRandom.Name = "NullRandom";
             NullRandom.Size = new Size(126, 23);
             NullRandom.TabIndex = 12;
@@ -190,7 +191,7 @@
             // 
             // ReverseButton
             // 
-            ReverseButton.Location = new Point(645, 95);
+            ReverseButton.Location = new Point(645, 108);
             ReverseButton.Name = "ReverseButton";
             ReverseButton.Size = new Size(126, 23);
             ReverseButton.TabIndex = 15;
@@ -200,7 +201,7 @@
             // 
             // SortButton
             // 
-            SortButton.Location = new Point(645, 124);
+            SortButton.Location = new Point(645, 137);
             SortButton.Name = "SortButton";
             SortButton.Size = new Size(126, 23);
             SortButton.TabIndex = 16;
@@ -208,11 +209,23 @@
             SortButton.UseVisualStyleBackColor = true;
             SortButton.Click += SortButton_Click;
             // 
+            // ArrayEnterButton
+            // 
+            ArrayEnterButton.Location = new Point(645, 21);
+            ArrayEnterButton.Name = "ArrayEnterButton";
+            ArrayEnterButton.Size = new Size(123, 23);
+            ArrayEnterButton.TabIndex = 17;
+            ArrayEnterButton.Text = "Вручную";
+            ArrayEnterButton.UseVisualStyleBackColor = true;
+            ArrayEnterButton.Click += ArrayEnterButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(781, 483);
+            Controls.Add(ArrayEnterButton);
             Controls.Add(SortButton);
             Controls.Add(ReverseButton);
             Controls.Add(SearchOut);
@@ -229,6 +242,7 @@
             Controls.Add(PlaceSwapper);
             Controls.Add(textBox1);
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Лабораторная работа №4";
             Load += Form1_Load;
             Enter += Form1_Enter;
@@ -254,5 +268,6 @@
         private Label SearchOut;
         private Button ReverseButton;
         private Button SortButton;
+        private Button ArrayEnterButton;
     }
 }
