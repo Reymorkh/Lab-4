@@ -86,7 +86,9 @@ namespace Лабораторная_4
 
         private void SkipButton_Click(object sender, EventArgs e)
         {
-            arrayLength++; 
+            arrayLength++;
+            if (arrayLength == Form1.arrayLength)
+                this.Close();
             switch (dialogResult)
             {
                 case DialogResult.Yes:
@@ -96,8 +98,7 @@ namespace Лабораторная_4
                     ArrayPrinter(Form1.arrayLength, countdown);
                     break;
             }
-            if (arrayLength == Form1.arrayLength + 1)
-                this.Close();
+            
         }
     }
 }
