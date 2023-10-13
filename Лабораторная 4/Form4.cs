@@ -45,7 +45,7 @@ namespace Лабораторная_4
         {
             InitializeComponent();
             dialogResult = MessageBox.Show("Набирать массив по порядку ввода? При выборе нет массив будет напечатан постоянно и меняться в реальном времени.", "", MessageBoxButtons.YesNo);
-        switch(dialogResult)
+            switch (dialogResult)
             {
                 case DialogResult.Yes:
                     ArrayPrinter(arrayLength, countdown);
@@ -73,7 +73,7 @@ namespace Лабораторная_4
             switch (dialogResult)
             {
                 case DialogResult.Yes:
-                    ArrayPrinter(arrayLength, countdown);                    
+                    ArrayPrinter(arrayLength, countdown);
                     break;
                 case DialogResult.No:
                     ArrayPrinter(Form1.arrayLength, countdown);
@@ -98,7 +98,7 @@ namespace Лабораторная_4
                     ArrayPrinter(Form1.arrayLength, countdown);
                     break;
             }
-            
+
         }
     }
 }

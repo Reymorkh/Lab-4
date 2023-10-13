@@ -48,7 +48,7 @@
             // 
             SkipButton.Location = new Point(294, 235);
             SkipButton.Name = "SkipButton";
-            SkipButton.Size = new Size(75, 23);
+            SkipButton.Size = new Size(82, 23);
             SkipButton.TabIndex = 1;
             SkipButton.Text = "Пропустить";
             SkipButton.UseVisualStyleBackColor = true;
@@ -75,7 +75,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(378, 293);
+            ClientSize = new Size(384, 293);
             Controls.Add(MainWindow);
             Controls.Add(textBox1);
             Controls.Add(SkipButton);
