@@ -109,9 +109,9 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(800, 450);
+            BackgroundImageLayout = ImageLayout.Center;
+            ClientSize = new Size(608, 450);
             Controls.Add(Addx);
             Controls.Add(DelMax);
             Controls.Add(AddMax);
@@ -119,7 +119,9 @@
             Controls.Add(guideButton);
             Controls.Add(addButton);
             Controls.Add(textBox1);
+            DoubleBuffered = true;
             Name = "Form2";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Самая крутая форма";
             Load += Form2_Load;
             ResumeLayout(false);

@@ -17,10 +17,11 @@ namespace Лабораторная_4
     public partial class Form2 : Form
     {
         public string a = "-101", b = "-101";
-        public int index1 = -1, index2 = -1;
+        public static int index1 = -1, index2 = -1;
         public List<Button> buttons = new List<Button>();
         public int fromTop = 100, fromLeft = 10, tabindex = 8, nameint = 0;
         //public string bName = "newButton";
+
 
 
         public void SwapButton(Button first, Button second)
@@ -124,49 +125,60 @@ namespace Лабораторная_4
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
-            ButtonPrinter();
-
-
-
+            if (Form1.arrayLength != 0)
+                ButtonPrinter();
         }
 
+       
+
+
         private void ButtonOnClick(object sender, EventArgs eventArgs)
-        {
+        {  
             var button = (Button)sender;
-            if (button != null)
+            DialogResult dialogResult = MessageBox.Show("Вы хотите перезаписать значение выбранного элемента массива?" + Environment.NewLine +
+                "При выборе варианта нет кнопка будет отмечена для обмена значениями." + Environment.NewLine +
+                "При выборе отмены это окно закроется.", "Ща будет сложно", MessageBoxButtons.YesNoCancel);
+            if (dialogResult == DialogResult.No)
             {
-                buttons.IndexOf(button);
 
-
-                if (a == "-101")
+                if (button != null)
                 {
-                    a = button.Text;
-                    index1 = buttons.IndexOf(button);
-                    // MessageBox.Show(Convert.ToString(index1));
-                }
-                else
-                if (b == "-101")
-                {
-                    b = button.Text;
-                    index2 = buttons.IndexOf(button);
-                    //MessageBox.Show(Convert.ToString(index2));
-                }
-                if (a != "-101" && b != "-101")
-                {
-                    Form1.SwapInt(ref Form1.arrayMain[index1], ref Form1.arrayMain[index2]);
-                    SwapButton(buttons[index1],buttons[index2]);
+                    buttons.IndexOf(button);
 
 
-                    a = "-101";
-                    b = "-101";
-                    index1 = -1;
-                    index2 = -1;
-                    //AddButton();
-                    //ButtonRewrite();
-                    //ButtonEraser();
-                    //ButtonPrinter();
+                    if (a == "-101")
+                    {
+                        a = button.Text;
+                        index1 = buttons.IndexOf(button);
+                    }
+                    else
+                    if (b == "-101")
+                    {
+                        b = button.Text;
+                        index2 = buttons.IndexOf(button);
+                    }
+                    if (a != "-101" && b != "-101")
+                    {
+                        Form1.SwapInt(ref Form1.arrayMain[index1], ref Form1.arrayMain[index2]);
+                        SwapButton(buttons[index1], buttons[index2]);
+
+
+                        a = "-101";
+                        b = "-101";
+                        index1 = -1;
+                        index2 = -1;
+                    }
                 }
+            }
+            if (dialogResult == DialogResult.Yes)
+            {
+                Form3.index = buttons.IndexOf(button);
+                Form3 gg = new Form3();
+                gg.ShowDialog();
+                gg.Dispose();
+                ButtonRewrite();
+                //ButtonEraser();
+                //ButtonPrinter();
             }
         }
 
@@ -246,7 +258,8 @@ namespace Лабораторная_4
                     Form1.SwapInt(ref Form1.arrayMain[i], ref Form1.arrayMain[i + 1]);
                 Array.Resize(ref Form1.arrayMain, Form1.arrayLength);
                 ButtonEraser();
-                ButtonPrinter();
+                if (Form1.arrayLength != 0)
+                    ButtonPrinter();
             }
             else
                 MessageBox.Show("Массива нет.", "Предупреждение");
@@ -281,15 +294,15 @@ namespace Лабораторная_4
                 Array.Resize(ref Form1.arrayMain, Form1.arrayLength);
                 for (int j = 0; j < x; j++)
                     for (int i = Form1.arrayLength - 2; i > -1; i--)
-                        Form1.SwapInt(ref Form1.arrayMain[i], ref Form1.arrayMain[i + 1]);   
-                
+                        Form1.SwapInt(ref Form1.arrayMain[i], ref Form1.arrayMain[i + 1]);
+
                 ButtonEraser();
                 ButtonPrinter();
             }
         }
 
 
-
+        //я скопировал 1 в 1, но не работает
         public void AddButton()
         {
 
@@ -304,7 +317,7 @@ namespace Лабораторная_4
                 fromLeft = 10;
                 fromTop += 40;
             }
-            
+
             buttons.Add(newButton);
 
             newButton.Size = new Size(40, 20);
@@ -315,13 +328,13 @@ namespace Лабораторная_4
         }     // не работает
 
         public void ButtonRewrite()
-       {
+        {
             for (int i = 0; i < Form1.arrayLength; i++)
             {
-                MessageBox.Show(Convert.ToString(i) + "   " + Convert.ToString(Form1.arrayLength),"");
+                //MessageBox.Show(Convert.ToString(i) + "   " + Convert.ToString(Form1.arrayLength), "");
                 buttons[i].Text = Convert.ToString(Form1.arrayMain[i]);
             }
-       } // что-то делает
+        } // что-то делает
 
         public void NewButton(int i, int j)
         {
@@ -335,7 +348,7 @@ namespace Лабораторная_4
             tabindex++;
             newButton.Click += ButtonOnClick;
             newButton.Text = Convert.ToString(Form1.arrayMain[i + j]);        //buttons.LastIndexOf(Button));        //Form1.arrayMain[IndexOf]);
-            
+
             //for (int i = 0; i < Form1.arrayLength - 10; i += 10)
             //{
             //    fromLeft = 10;
@@ -356,8 +369,8 @@ namespace Лабораторная_4
             //        Controls.Add(newButton);
             //    }
             //    fromTop += 40;
-            } // не работает
-        
+        } // не работает
+
         public void ButtonPrinterv2()
         {
             for (int i = 0; i < Form1.arrayLength - 10; i += 10)
@@ -391,7 +404,5 @@ namespace Лабораторная_4
             buttons.RemoveAt(Form1.arrayLength - 1);
             ButtonRewrite();
         } //не нужно без работы AddButton
-
-
     }
 }
