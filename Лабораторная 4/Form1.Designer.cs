@@ -67,7 +67,6 @@
             textBox1.Size = new Size(507, 23);
             textBox1.TabIndex = 1;
             textBox1.Text = "Поле ввода";
-            textBox1.TextChanged += textBox1_TextChanged;
             textBox1.Enter += textBox1_Enter;
             textBox1.KeyDown += textBox1_KeyDown;
             textBox1.Leave += textBox1_Leave;
@@ -98,7 +97,6 @@
             MainWindow.Size = new Size(507, 335);
             MainWindow.TabIndex = 3;
             MainWindow.Text = "Здесь будет распечатан массив";
-            MainWindow.TextChanged += MainWindow_TextChanged;
             // 
             // RandomFiller
             // 
@@ -138,7 +136,6 @@
             label1.Size = new Size(448, 15);
             label1.TabIndex = 9;
             label1.Text = "Кнопка Enter приравнивает длину последовательности к указанному значению.";
-            label1.Click += label1_Click;
             // 
             // coolLabel
             // 
@@ -244,8 +241,6 @@
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Лабораторная работа №4";
-            Load += Form1_Load;
-            Enter += Form1_Enter;
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             ResumeLayout(false);
             PerformLayout();

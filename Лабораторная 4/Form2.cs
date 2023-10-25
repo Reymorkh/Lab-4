@@ -20,9 +20,6 @@ namespace Лабораторная_4
         public static int index1 = -1, index2 = -1;
         public List<Button> buttons = new List<Button>();
         public int fromTop = 100, fromLeft = 10, tabindex = 8, nameint = 0;
-        //public string bName = "newButton";
-
-
 
         public void SwapButton(Button first, Button second)
         {
@@ -39,74 +36,6 @@ namespace Лабораторная_4
             b = temp;
         }
 
-        public void ButtonPrinter()
-        {
-
-            string name = "newButton";
-            int nameInt = 0;
-            for (int i = 0; i < Form1.arrayLength - 10; i += 10)
-            {
-                fromLeft = 10;
-                for (int j = 0; j < 10; j++)
-                {
-                    Button newButton = new Button();
-                    newButton.Location = new Point(fromLeft, fromTop);
-                    fromLeft += 60;
-
-                    //newButton.Name = name + Convert.ToString(nameInt);
-                    buttons.Add(newButton);
-                    nameInt++;
-                    newButton.Size = new Size(40, 20);
-                    newButton.TabIndex = tabindex;
-                    tabindex++;
-                    newButton.Click += ButtonOnClick;
-                    newButton.Text = Convert.ToString(Form1.arrayMain[i + j]);
-                    Controls.Add(newButton);
-                }
-                fromTop += 40;
-            }
-
-
-            fromLeft = 10;
-
-            if (Form1.arrayLength % 10 != 0)
-                for (int j = Form1.arrayLength - Form1.arrayLength % 10; j < Form1.arrayLength; j++)
-                {
-                    Button newButton = new Button();
-                    newButton.Location = new Point(fromLeft, fromTop);
-                    fromLeft += 60;
-
-                    newButton.Name = name + Convert.ToString(nameInt);
-                    buttons.Add(newButton);
-                    nameInt++;
-                    newButton.Size = new Size(40, 20);
-                    newButton.TabIndex = tabindex;
-                    tabindex++;
-                    newButton.Click += ButtonOnClick;
-                    newButton.Text = Convert.ToString(Form1.arrayMain[j]);
-                    Controls.Add(newButton);
-                }
-            else
-                for (int j = Form1.arrayLength - 10; j < Form1.arrayLength; j++)
-                {
-                    Button newButton = new Button();
-                    newButton.Location = new Point(fromLeft, fromTop);
-                    fromLeft += 60;
-
-                    newButton.Name = name + Convert.ToString(nameInt);
-                    buttons.Add(newButton);
-                    nameInt++;
-                    newButton.Size = new Size(40, 20);
-                    newButton.TabIndex = tabindex;
-                    tabindex++;
-                    newButton.Click += ButtonOnClick;
-                    newButton.Text = Convert.ToString(Form1.arrayMain[j]);
-                    Controls.Add(newButton);
-                }
-
-
-        }
-
         public void ButtonEraser()
         {
             foreach (var button in buttons)
@@ -121,16 +50,14 @@ namespace Лабораторная_4
         public Form2()
         {
             InitializeComponent();
+            fromTop = 100; fromLeft = 10;
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
             if (Form1.arrayLength != 0)
-                ButtonPrinter();
+                ButtonPrinterv3();
         }
-
-       
-
 
         private void ButtonOnClick(object sender, EventArgs eventArgs)
         {  
@@ -193,12 +120,8 @@ namespace Лабораторная_4
                 Form1.arrayLength++;
                 Array.Resize(ref Form1.arrayMain, Form1.arrayLength);
                 Form1.arrayMain[Form1.arrayLength - 1] = x;
-
-                ButtonEraser();
-                ButtonPrinter();
-                //}
-                //else
-                //MessageBox.Show("Вы ввели число меньше нуля.", "Предупреждение");
+                AddButton(Form1.arrayLength - 1);
+                ButtonRewrite();
             }
             else
                 MessageBox.Show("Нечисло.", "Предупреждение");
@@ -216,12 +139,10 @@ namespace Лабораторная_4
                     Form1.arrayMain[x - 1] = 0;
                     for (int i = x - 1; i < Form1.arrayLength - 1; i++)
                         Form1.arrayMain[i] = Form1.arrayMain[i + 1];
-
                     Form1.arrayLength--;
                     Array.Resize(ref Form1.arrayMain, Form1.arrayLength);
-                    ButtonEraser();
                     if (Form1.arrayLength != 0)
-                        ButtonPrinter();
+                        ButtonSnipeEraser(Form1.arrayLength);
                 }
                 else
                     MessageBox.Show("Вы ввели число за границами массива.", "Предупреждение");
@@ -257,9 +178,8 @@ namespace Лабораторная_4
                 for (int i = index; i < Form1.arrayLength; i++)
                     Form1.SwapInt(ref Form1.arrayMain[i], ref Form1.arrayMain[i + 1]);
                 Array.Resize(ref Form1.arrayMain, Form1.arrayLength);
-                ButtonEraser();
                 if (Form1.arrayLength != 0)
-                    ButtonPrinter();
+                    ButtonSnipeEraser(Form1.arrayLength);
             }
             else
                 MessageBox.Show("Массива нет.", "Предупреждение");
@@ -276,11 +196,8 @@ namespace Лабораторная_4
                 Form1.arrayMain[Form1.arrayLength - 1] = x;
                 for (int i = Form1.arrayLength - 2; i > -1; i--)
                     Form1.SwapInt(ref Form1.arrayMain[i], ref Form1.arrayMain[i + 1]);
-                //AddButton();
-
-
-                ButtonEraser();
-                ButtonPrinter();
+                AddButton(Form1.arrayLength - 1);
+                ButtonRewrite();
             }
         }
 
@@ -295,20 +212,19 @@ namespace Лабораторная_4
                 for (int j = 0; j < x; j++)
                     for (int i = Form1.arrayLength - 2; i > -1; i--)
                         Form1.SwapInt(ref Form1.arrayMain[i], ref Form1.arrayMain[i + 1]);
-
-                ButtonEraser();
-                ButtonPrinter();
+                for (int i = Form1.arrayLength - x;  i < Form1.arrayLength; i++)
+                    AddButton(i);
+                ButtonRewrite();
             }
         }
 
-
-        //я скопировал 1 в 1, но не работает
-        public void AddButton()
+        //работает великолепно
+        public void AddButton(int i) 
         {
 
             Button newButton = new Button();
             newButton.Location = new Point(fromLeft, fromTop);
-            if (fromLeft < 610)
+            if (fromLeft < 550)
             {
                 fromLeft += 60;
             }
@@ -319,11 +235,11 @@ namespace Лабораторная_4
             }
 
             buttons.Add(newButton);
-
             newButton.Size = new Size(40, 20);
             newButton.TabIndex = tabindex;
             tabindex++;
             newButton.Click += ButtonOnClick;
+            newButton.Text = Convert.ToString(Form1.arrayMain[i]);
             Controls.Add(newButton);
         }     // не работает
 
@@ -334,75 +250,27 @@ namespace Лабораторная_4
                 //MessageBox.Show(Convert.ToString(i) + "   " + Convert.ToString(Form1.arrayLength), "");
                 buttons[i].Text = Convert.ToString(Form1.arrayMain[i]);
             }
-        } // что-то делает
+        } // работает
 
-        public void NewButton(int i, int j)
+        public void ButtonPrinterv3() //Работает как швейцарские часы
         {
-            Button newButton = new Button();
-            newButton.Location = new Point(fromLeft, fromTop);
+            for (int i = 0; i < Form1.arrayLength; i++)
+                AddButton(i);
+        }
 
-            //newButton.Name = bName + Convert.ToString(nameint);
-            buttons.Add(newButton); //
-            newButton.Size = new Size(40, 20);
-            newButton.TabIndex = tabindex;
-            tabindex++;
-            newButton.Click += ButtonOnClick;
-            newButton.Text = Convert.ToString(Form1.arrayMain[i + j]);        //buttons.LastIndexOf(Button));        //Form1.arrayMain[IndexOf]);
-
-            //for (int i = 0; i < Form1.arrayLength - 10; i += 10)
-            //{
-            //    fromLeft = 10;
-            //    for (int j = 0; j < 10; j++)
-            //    {
-            //        Button newButton = new Button();
-            //        newButton.Location = new Point(fromLeft, fromTop);
-            //        fromLeft += 60;
-
-            //        newButton.Name = name + Convert.ToString(nameInt);
-            //        buttons.Add(newButton);
-            //        nameInt++;
-            //        newButton.Size = new Size(40, 20);
-            //        newButton.TabIndex = tabIndex;
-            //        tabIndex++;
-            //        newButton.Click += ButtonOnClick;
-            //        newButton.Text = Convert.ToString(Form1.arrayMain[i + j]);
-            //        Controls.Add(newButton);
-            //    }
-            //    fromTop += 40;
-        } // не работает
-
-        public void ButtonPrinterv2()
+        public void ButtonSnipeEraser(int i)
         {
-            for (int i = 0; i < Form1.arrayLength - 10; i += 10)
+            buttons[i].Dispose();
+            buttons.RemoveAt(i);
+            if (fromLeft > 10)
             {
-                for (int j = 0; j < 10; j++)
-                {
-                    NewButton(i, j);
-                    fromLeft += 60;
-                }
-                fromLeft = 10;
-                fromTop += 40;
+                fromLeft -= 60;
             }
-            if (Form1.arrayLength % 10 != 0)
-                for (int j = Form1.arrayLength - Form1.arrayLength % 10; j < Form1.arrayLength; j++)
-                {
-                    NewButton(Form1.arrayLength - Form1.arrayLength % 10, j);
-                    fromLeft += 60;
-                }
             else
-                for (int j = Form1.arrayLength - 10; j < Form1.arrayLength; j++)
-                {
-                    NewButton(Form1.arrayLength - 10, j);
-                    fromLeft += 60;
-                }
-            ButtonRewrite();
-        } //не работает
-
-        public void ButtonSnipeEraser()
-        {
-            buttons[Form1.arrayLength - 1].Dispose();
-            buttons.RemoveAt(Form1.arrayLength - 1);
-            ButtonRewrite();
-        } //не нужно без работы AddButton
+            {
+                fromLeft = 550;
+                fromTop -= 40;
+            }
+        }
     }
 }

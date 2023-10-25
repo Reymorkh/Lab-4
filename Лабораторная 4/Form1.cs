@@ -96,7 +96,6 @@ namespace Лабораторная_4
             f.ShowDialog();
             f.Dispose();
             ArrayPrinter();
-
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
@@ -156,7 +155,7 @@ namespace Лабораторная_4
             {
                 SearchOut.Visible = true;
                 SearchButton.Visible = true;
-                
+
             }
             ArrayPrinter();
 
@@ -213,7 +212,7 @@ namespace Лабораторная_4
                     hasBeenAdded -= minusX;
                     Array.Resize(ref arrayMain, arrayLength);
                     if (arrayLength == 0)
-                    { 
+                    {
                         SearchOut.Visible = false;
                         SearchButton.Visible = false;
                     }
@@ -228,7 +227,7 @@ namespace Лабораторная_4
             if (arrayLength != 0)
             {
                 if (hasBeenAdded == 0)
-                MessageBox.Show("Либо массива нет, либо после добавления элементов вы нажали сортировку.", "Ошибка");
+                    MessageBox.Show("Либо массива нет, либо после добавления элементов вы нажали сортировку.", "Ошибка");
                 for (int i = arrayLength - hasBeenAdded; i < arrayLength; i++)
                 {
                     if (arrayMain[i] == 0)
@@ -281,6 +280,7 @@ namespace Лабораторная_4
             if (arrayLength != 0)
                 ArrayPrinter();
         }
+
         private void ArrayEnterButton_Click(object sender, EventArgs e)
         {
             if (arrayLength != 0)
@@ -294,29 +294,6 @@ namespace Лабораторная_4
                 MessageBox.Show("Массив-то создайте.", "Ошибка");
         }
 
-        //пустые события
-        private void MainWindow_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
     }
 
 }
