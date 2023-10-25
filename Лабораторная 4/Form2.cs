@@ -218,7 +218,6 @@ namespace Лабораторная_4
             }
         }
 
-        //работает великолепно
         public void AddButton(int i) 
         {
 
@@ -241,7 +240,7 @@ namespace Лабораторная_4
             newButton.Click += ButtonOnClick;
             newButton.Text = Convert.ToString(Form1.arrayMain[i]);
             Controls.Add(newButton);
-        }     // не работает
+        } //работает великолепно
 
         public void ButtonRewrite()
         {
@@ -250,7 +249,7 @@ namespace Лабораторная_4
                 //MessageBox.Show(Convert.ToString(i) + "   " + Convert.ToString(Form1.arrayLength), "");
                 buttons[i].Text = Convert.ToString(Form1.arrayMain[i]);
             }
-        } // работает
+        } //работает
 
         public void ButtonPrinterv3() //Работает как швейцарские часы
         {
