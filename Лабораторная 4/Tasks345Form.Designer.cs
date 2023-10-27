@@ -1,6 +1,6 @@
 ﻿namespace Лабораторная_4
 {
-    partial class Form2
+    partial class Tasks345Form
     {
         /// <summary>
         /// Required designer variable.
@@ -52,7 +52,7 @@
             addButton.TabIndex = 1;
             addButton.Text = "AddEnd";
             addButton.UseVisualStyleBackColor = true;
-            addButton.Click += addButton_Click;
+            addButton.Click += AddButton_Click;
             // 
             // guideButton
             // 
@@ -62,7 +62,7 @@
             guideButton.TabIndex = 2;
             guideButton.Text = "?";
             guideButton.UseVisualStyleBackColor = true;
-            guideButton.Click += guideButton_Click;
+            guideButton.Click += GuideButton_Click;
             // 
             // deleteButton
             // 
@@ -72,7 +72,7 @@
             deleteButton.TabIndex = 3;
             deleteButton.Text = "Del";
             deleteButton.UseVisualStyleBackColor = true;
-            deleteButton.Click += deleteButton_Click;
+            deleteButton.Click += DeleteButton_Click;
             // 
             // AddMax
             // 
