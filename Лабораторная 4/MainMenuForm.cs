@@ -40,13 +40,6 @@ namespace Лабораторная_4
       return array;
     }
 
-    public static void SwapInt(ref int a, ref int b)
-    {
-      int temp = a;
-      a = b;
-      b = temp;
-    }
-
     public void ArrayPrinter()
     {
       MainWindow.Text = "Длина массива записана как: " + arrayLength;
@@ -179,7 +172,6 @@ namespace Лабораторная_4
     private void PlusButton_Click(object sender, EventArgs e)
     {
       int plusX;
-
       if (int.TryParse(textBox1.Text, out plusX))
         if (Convert.ToInt32(textBox1.Text) + arrayLength < 2147483646)
         {

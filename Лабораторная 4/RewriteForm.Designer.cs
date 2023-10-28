@@ -62,7 +62,6 @@
       Name = "RewriteForm";
       StartPosition = FormStartPosition.CenterScreen;
       Text = "Окно перезаписи";
-      Load += Form3_Load;
       ResumeLayout(false);
       PerformLayout();
     }

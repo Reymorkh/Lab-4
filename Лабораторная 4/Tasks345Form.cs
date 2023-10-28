@@ -58,7 +58,7 @@ namespace Лабораторная_4
           }
           if (a != "-101" && b != "-101")
           {
-            MainMenuForm.SwapInt(ref MainMenuForm.arrayMain[index1], ref MainMenuForm.arrayMain[index2]);
+            (MainMenuForm.arrayMain[index1], MainMenuForm.arrayMain[index2]) = (MainMenuForm.arrayMain[index2], MainMenuForm.arrayMain[index1]);
             (buttons[index1].Text, buttons[index2].Text) = (buttons[index2].Text, buttons[index1].Text);
 
             a = "-101";
@@ -145,7 +145,7 @@ namespace Лабораторная_4
         }
         MainMenuForm.arrayLength -= 1;
         for (int i = index; i < MainMenuForm.arrayLength; i++)
-          MainMenuForm.SwapInt(ref MainMenuForm.arrayMain[i], ref MainMenuForm.arrayMain[i + 1]);
+          (MainMenuForm.arrayMain[i],MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
         Array.Resize(ref MainMenuForm.arrayMain, MainMenuForm.arrayLength);
         if (MainMenuForm.arrayLength != 0)
           ButtonSnipeEraser(MainMenuForm.arrayLength);
@@ -164,7 +164,7 @@ namespace Лабораторная_4
         Array.Resize(ref MainMenuForm.arrayMain, MainMenuForm.arrayLength);
         MainMenuForm.arrayMain[MainMenuForm.arrayLength - 1] = x;
         for (int i = MainMenuForm.arrayLength - 2; i > -1; i--)
-          MainMenuForm.SwapInt(ref MainMenuForm.arrayMain[i], ref MainMenuForm.arrayMain[i + 1]);
+          (MainMenuForm.arrayMain[i], MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
         AddButton(MainMenuForm.arrayLength - 1);
         ButtonRewrite();
       }
@@ -180,7 +180,7 @@ namespace Лабораторная_4
         Array.Resize(ref MainMenuForm.arrayMain, MainMenuForm.arrayLength);
         for (int j = 0; j < x; j++)
           for (int i = MainMenuForm.arrayLength - 2; i > -1; i--)
-            MainMenuForm.SwapInt(ref MainMenuForm.arrayMain[i], ref MainMenuForm.arrayMain[i + 1]);
+            (MainMenuForm.arrayMain[i], MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
         for (int i = MainMenuForm.arrayLength - x; i < MainMenuForm.arrayLength; i++)
           AddButton(i);
         ButtonRewrite();

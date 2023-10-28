@@ -13,14 +13,10 @@ namespace Лабораторная_4
   public partial class RewriteForm : Form
   {
     public static int index;
+
     public RewriteForm()
     {
       InitializeComponent();
-    }
-
-    private void Form3_Load(object sender, EventArgs e)
-    {
-
     }
 
     private void button1_Click(object sender, EventArgs e)
