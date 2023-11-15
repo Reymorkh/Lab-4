@@ -45,7 +45,7 @@ namespace Лабораторная_4
         else
           for (int j = arrayLengthLocal - 10; j < arrayLengthLocal; j++)
           {
-            text[0] = "Вам осталось " + (MainMenuForm.arrayLength - countdown) + " элементов. Вид массива прямо сейчас:" + Environment.NewLine;
+            text[0] = "Вам осталось " + (arrayLength - countdown) + " элементов. Вид массива прямо сейчас:" + Environment.NewLine;
             text[1 + i] += MainMenuForm.arrayMain[j] + " ";
             MainWindow.Text = string.Join('\n', text);
           }
@@ -116,3 +116,4 @@ namespace Лабораторная_4
     }
   }
 }
+    

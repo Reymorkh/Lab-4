@@ -6,10 +6,18 @@ namespace Лабораторная_4
   public partial class MainMenuForm : Form
   {
     public static int arrayLength = 0, cycleRight, cycleDown;
-    public static int[] arrayMain;
+    public static int[] arrayMain = new int[0];
     public static Random random = new Random();
     public int hasBeenAdded = 0;
     public bool isSorted = false;
+
+    public static int[] Resize(int length)
+    {
+      int[] array = new int[length];
+      for (int i = 0; i < length & i < arrayMain.Length; i++)
+        array[i] = arrayMain[i];
+      return array;
+    }
 
     int Partition(int[] array, int minIndex, int maxIndex)
     {
@@ -40,39 +48,54 @@ namespace Лабораторная_4
       return array;
     }
 
-    public void ArrayPrinter()
+    string RowPrint(int leftIndex, int rightIndex)
     {
-      MainWindow.Text = "Длина массива записана как: " + arrayLength;
-      MainWindow.Text += Environment.NewLine;
+      string row = String.Empty;
+      for (int i = leftIndex; i < rightIndex; i++)
+        if (i != rightIndex - 1)
+          row += arrayMain[i] + " ";
+        else
+          row += arrayMain[i];
+      return row;
+    }
+
+    void ArrayPrinter()
+    {
+      MainWindow.Text = "Длина массива записана как: " + arrayLength + Environment.NewLine;
       if (arrayLength != 0)
       {
-        for (int i = 0; i < arrayMain.Length; i++)
-          if (arrayMain[i] != 0)
-            if (arrayMain[i] % 2 == 0)
-            {
-              MainWindow.Text += "Первое чётное число: " + arrayMain[i] + " с индексом: " + i + Environment.NewLine;
-              break;
-            }
-        for (int i = 0; i < arrayLength - 10; i += 10)
-        {
-          for (int j = 0; j < 10; j++)
-          {
-            MainWindow.Text += arrayMain[i + j] + " ";
-          }
-          MainWindow.Text += Environment.NewLine;
-        }
-        if (arrayLength % 10 != 0)
-          for (int j = arrayLength - arrayLength % 10; j < arrayLength; j++)
-          {
-            MainWindow.Text += arrayMain[j] + " ";
+        for (int i = 0; i < arrayLength; i += 10)
+          if (arrayLength > +i + 10)
+            MainWindow.Text += RowPrint(i, i + 10) + Environment.NewLine;
+          else
+            MainWindow.Text += RowPrint(i, arrayLength);
+        //for (int i = 0; i < arrayMain.Length; i++)
+        //  if (arrayMain[i] != 0)
+        //    if (arrayMain[i] % 2 == 0)
+        //    {
+        //      MainWindow.Text += "Первое чётное число: " + arrayMain[i] + " с индексом: " + i + Environment.NewLine;
+        //      break;
+        //    }
+        //for (int i = 0; i < arrayLength - 10; i += 10)
+        //{
+        //  for (int j = 0; j < 10; j++)
+        //  {
+        //    MainWindow.Text += arrayMain[i + j] + " ";
+        //  }
+        //  MainWindow.Text += Environment.NewLine;
+        //}
+        //if (arrayLength % 10 != 0)
+        //  for (int j = arrayLength - arrayLength % 10; j < arrayLength; j++)
+        //  {
+        //    MainWindow.Text += arrayMain[j] + " ";
 
-          }
-        else
-          for (int j = arrayLength - 10; j < arrayLength; j++)
-          {
-            MainWindow.Text += arrayMain[j] + " ";
+        //  }
+        //else
+        //  for (int j = arrayLength - 10; j < arrayLength; j++)
+        //  {
+        //    MainWindow.Text += arrayMain[j] + " ";
 
-          }
+        //  }
       }
     }
 
@@ -121,7 +144,7 @@ namespace Лабораторная_4
           hasBeenAdded += Convert.ToInt32(textBox1.Text) - arrayLength;
 
         arrayLength = Convert.ToInt32(textBox1.Text);
-        Array.Resize(ref arrayMain, arrayLength);
+        arrayMain = Resize(arrayLength);
 
         if (arrayAssignCheck)
         {
@@ -177,7 +200,7 @@ namespace Лабораторная_4
         {
           arrayLength += plusX;
           hasBeenAdded += plusX;
-          Array.Resize(ref arrayMain, arrayLength);
+          arrayMain = Resize(arrayLength);
           ArrayPrinter();
           if (!SearchButton.Visible)
           {
@@ -195,7 +218,7 @@ namespace Лабораторная_4
         {
           arrayLength -= minusX;
           hasBeenAdded -= minusX;
-          Array.Resize(ref arrayMain, arrayLength);
+          arrayMain = Resize(arrayLength);
           if (arrayLength == 0)
           {
             SearchOut.Visible = false;
@@ -255,6 +278,7 @@ namespace Лабораторная_4
         HoarahSort(arrayMain, 0, arrayLength - 1);
         hasBeenAdded = 0;
         ArrayPrinter();
+        isSorted = true;
       }
       else
         MessageBox.Show("Массива нет.", "Ошибка");
@@ -277,6 +301,40 @@ namespace Лабораторная_4
       }
       else
         MessageBox.Show("Массив-то создайте.", "Ошибка");
+    }
+
+    private void BinarySearchButton_Click(object sender, EventArgs e)
+    {
+      int number;
+      if (isSorted && int.TryParse(BinarySearchBox.Text, out number))
+      {
+        number = BinarySearch(number, 0, arrayLength);
+        if (number > -1)
+          BinarySearchLabel.Text = "Номер искомого элемента: " + Convert.ToString(number + 1);
+        else 
+          BinarySearchLabel.Text = "Элемент не найден";
+      }
+    }
+
+    static int BinarySearch(int searchedNumber, int indexLeft, int indexRight)
+    {
+      while (indexLeft <= indexRight)
+      {
+        var middle = (indexLeft + indexRight) / 2;
+        if (searchedNumber == arrayMain[middle])
+        {
+          return middle;
+        }
+        else if (searchedNumber < arrayMain[middle])
+        {
+          indexRight = middle - 1;
+        }
+        else
+        {
+          indexLeft = middle + 1;
+        }
+      }
+      return -1;
     }
   }
 }

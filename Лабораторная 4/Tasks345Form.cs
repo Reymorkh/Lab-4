@@ -87,34 +87,10 @@ namespace Лабораторная_4
       {
         x = Convert.ToInt32(textBox1.Text);
         MainMenuForm.arrayLength++;
-        Array.Resize(ref MainMenuForm.arrayMain, MainMenuForm.arrayLength);
+        MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
         MainMenuForm.arrayMain[MainMenuForm.arrayLength - 1] = x;
         AddButton(MainMenuForm.arrayLength - 1);
         ButtonRewrite();
-      }
-      else
-        MessageBox.Show("Нечисло.", "Предупреждение");
-    }
-
-    private void DeleteButton_Click(object sender, EventArgs e)
-    {
-      int x;
-      if (int.TryParse(textBox1.Text, out x))
-      {
-        x = Convert.ToInt32(textBox1.Text);
-        if (x > 0 && x <= MainMenuForm.arrayLength)
-        {
-          x = Convert.ToInt32(textBox1.Text);
-          MainMenuForm.arrayMain[x - 1] = 0;
-          for (int i = x - 1; i < MainMenuForm.arrayLength - 1; i++)
-            MainMenuForm.arrayMain[i] = MainMenuForm.arrayMain[i + 1];
-          MainMenuForm.arrayLength--;
-          Array.Resize(ref MainMenuForm.arrayMain, MainMenuForm.arrayLength);
-          if (MainMenuForm.arrayLength != 0)
-            ButtonSnipeEraser(MainMenuForm.arrayLength);
-        }
-        else
-          MessageBox.Show("Вы ввели число за границами массива.", "Предупреждение");
       }
       else
         MessageBox.Show("Нечисло.", "Предупреждение");
@@ -130,11 +106,38 @@ namespace Лабораторная_4
           "Для оперестановки элементов нажмите на оба элемента, которые хотите поменять местами.", "Help");
     }
 
+    private void DeleteButton_Click(object sender, EventArgs e)
+    {
+      int x;
+      if (int.TryParse(textBox1.Text, out x))
+      {
+        x = Convert.ToInt32(textBox1.Text);
+        if (x > 0 && x <= MainMenuForm.arrayLength)
+        {
+          x = Convert.ToInt32(textBox1.Text);
+          MainMenuForm.arrayMain[x - 1] = 0;
+          for (int i = x - 1; i < MainMenuForm.arrayLength - 1; i++)
+            MainMenuForm.arrayMain[i] = MainMenuForm.arrayMain[i + 1];
+          MainMenuForm.arrayLength--;
+          MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
+          if (MainMenuForm.arrayLength != 0)
+            ButtonSnipeEraser(MainMenuForm.arrayLength);
+          else
+            ButtonSnipeEraser(0);
+          ButtonRewrite();
+        }
+        else
+          MessageBox.Show("Вы ввели число за границами массива.", "Предупреждение");
+      }
+      else
+        MessageBox.Show("Нечисло.", "Предупреждение");
+    }
+
     private void DelMax_Click(object sender, EventArgs e)
     {
       if (MainMenuForm.arrayLength != 0)
       {
-        int max = -100, index = 0;
+        int max = -101, index = 0;
         for (int i = 0; i < MainMenuForm.arrayLength; i++)
         {
           if (max < MainMenuForm.arrayMain[i])
@@ -143,12 +146,15 @@ namespace Лабораторная_4
             index = i;
           }
         }
-        MainMenuForm.arrayLength -= 1;
+        MainMenuForm.arrayLength--;
         for (int i = index; i < MainMenuForm.arrayLength; i++)
           (MainMenuForm.arrayMain[i],MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
-        Array.Resize(ref MainMenuForm.arrayMain, MainMenuForm.arrayLength);
+        MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
         if (MainMenuForm.arrayLength != 0)
           ButtonSnipeEraser(MainMenuForm.arrayLength);
+        else
+          ButtonSnipeEraser(0);
+        ButtonRewrite();
       }
       else
         MessageBox.Show("Массива нет.", "Предупреждение");
@@ -161,7 +167,7 @@ namespace Лабораторная_4
       if (isCorrect)
       {
         MainMenuForm.arrayLength++;
-        Array.Resize(ref MainMenuForm.arrayMain, MainMenuForm.arrayLength);
+        MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
         MainMenuForm.arrayMain[MainMenuForm.arrayLength - 1] = x;
         for (int i = MainMenuForm.arrayLength - 2; i > -1; i--)
           (MainMenuForm.arrayMain[i], MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
@@ -177,7 +183,7 @@ namespace Лабораторная_4
       if (isCorrect && x > 0)
       {
         MainMenuForm.arrayLength += x;
-        Array.Resize(ref MainMenuForm.arrayMain, MainMenuForm.arrayLength);
+        MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
         for (int j = 0; j < x; j++)
           for (int i = MainMenuForm.arrayLength - 2; i > -1; i--)
             (MainMenuForm.arrayMain[i], MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
