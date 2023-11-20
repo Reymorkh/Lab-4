@@ -121,9 +121,9 @@ namespace Лабораторная_4
           MainMenuForm.arrayLength--;
           MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
           if (MainMenuForm.arrayLength != 0)
-            ButtonSnipeEraser(MainMenuForm.arrayLength);
+            ButtonIndexEraser(MainMenuForm.arrayLength);
           else
-            ButtonSnipeEraser(0);
+            ButtonIndexEraser(0);
           ButtonRewrite();
         }
         else
@@ -151,9 +151,9 @@ namespace Лабораторная_4
           (MainMenuForm.arrayMain[i],MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
         MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
         if (MainMenuForm.arrayLength != 0)
-          ButtonSnipeEraser(MainMenuForm.arrayLength);
+          ButtonIndexEraser(MainMenuForm.arrayLength);
         else
-          ButtonSnipeEraser(0);
+          ButtonIndexEraser(0);
         ButtonRewrite();
       }
       else
@@ -232,7 +232,7 @@ namespace Лабораторная_4
         AddButton(i);
     }
 
-    public void ButtonSnipeEraser(int i)
+    public void ButtonIndexEraser(int i)
     {
       buttons[i].Dispose();
       buttons.RemoveAt(i);

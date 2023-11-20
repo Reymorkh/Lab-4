@@ -77,6 +77,8 @@ namespace Лабораторная_4
       int x;
       if (int.TryParse(text, out x) && x < 100 && x > -100)
       {
+        if (MainMenuForm.isSorted == true)
+          MainMenuForm.isSorted = false;
         MainMenuForm.arrayMain[arrayLength] = x;
         arrayLength++;
         countdown++;
@@ -100,6 +102,8 @@ namespace Лабораторная_4
 
     private void SkipButton_Click(object sender, EventArgs e)
     {
+      if (MainMenuForm.isSorted == true)
+        MainMenuForm.isSorted = false;
       arrayLength++;
       countdown++;
       if (arrayLength == MainMenuForm.arrayLength)

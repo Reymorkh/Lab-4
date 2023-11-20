@@ -171,11 +171,11 @@
       // 
       // SearchButton
       // 
-      SearchButton.Location = new Point(528, 398);
+      SearchButton.Location = new Point(645, 234);
       SearchButton.Name = "SearchButton";
-      SearchButton.Size = new Size(75, 23);
+      SearchButton.Size = new Size(123, 23);
       SearchButton.TabIndex = 13;
-      SearchButton.Text = "Search";
+      SearchButton.Text = "Поиск чётного";
       SearchButton.UseVisualStyleBackColor = true;
       SearchButton.Visible = false;
       SearchButton.Click += SearchButton_Click;
@@ -183,11 +183,11 @@
       // SearchOut
       // 
       SearchOut.AutoSize = true;
-      SearchOut.Location = new Point(360, 402);
+      SearchOut.Location = new Point(596, 275);
       SearchOut.Name = "SearchOut";
-      SearchOut.Size = new Size(96, 15);
+      SearchOut.Size = new Size(156, 15);
       SearchOut.TabIndex = 14;
-      SearchOut.Text = "Нажмите Search";
+      SearchOut.Text = "Поиск пока не проводился";
       SearchOut.Visible = false;
       // 
       // ReverseButton

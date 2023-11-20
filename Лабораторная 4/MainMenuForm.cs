@@ -7,11 +7,11 @@ namespace Лабораторная_4
   {
     public static int arrayLength = 0, cycleRight, cycleDown;
     public static int[] arrayMain = new int[0];
-    public static Random random = new Random();
-    public int hasBeenAdded = 0;
-    public bool isSorted = false;
+    static Random random = new Random();
+    int hasBeenAdded = 0;
+    public static bool isSorted = false;
 
-    public static int[] Resize(int length)
+    public static new int[] Resize(int length)
     {
       int[] array = new int[length];
       for (int i = 0; i < length & i < arrayMain.Length; i++)
@@ -48,7 +48,7 @@ namespace Лабораторная_4
       return array;
     }
 
-    string RowPrint(int leftIndex, int rightIndex)
+    static string RowPrint(int leftIndex, int rightIndex)
     {
       string row = String.Empty;
       for (int i = leftIndex; i < rightIndex; i++)
@@ -137,6 +137,7 @@ namespace Лабораторная_4
         arrayAssignCheck = true;
       if (int.TryParse(textBox1.Text, out arrayLength))
       {
+        isSorted = false;
         if (arrayLength < Convert.ToInt32(textBox1.Text))
           hasBeenAdded -= arrayLength - Convert.ToInt32(textBox1.Text);
         else
@@ -148,10 +149,10 @@ namespace Лабораторная_4
 
         if (arrayAssignCheck)
         {
+          hasBeenAdded += arrayLength;
           DialogResult dialogResult = MessageBox.Show("Вы инициализировали новый массив. Заполнить его?", "Notification.", MessageBoxButtons.YesNo);
           if (dialogResult == DialogResult.Yes)
           {
-            arrayAssignCheck = false;
             RandomFiller_Click(sender, e);
           }
         }
@@ -182,6 +183,7 @@ namespace Лабораторная_4
     {
       if (arrayLength != 0)
       {
+        isSorted = false;
         for (int i = 0; i < arrayLength; i++)
         {
           arrayMain[i] = random.Next(-100, 100);
@@ -195,19 +197,19 @@ namespace Лабораторная_4
     private void PlusButton_Click(object sender, EventArgs e)
     {
       int plusX;
-      if (int.TryParse(textBox1.Text, out plusX))
-        if (Convert.ToInt32(textBox1.Text) + arrayLength < 2147483646)
+      if (int.TryParse(textBox1.Text, out plusX) && plusX + arrayLength < 2147483646)
+      {
+        isSorted = false;
+        arrayLength += plusX;
+        hasBeenAdded += plusX;
+        arrayMain = Resize(arrayLength);
+        ArrayPrinter();
+        if (!SearchButton.Visible)
         {
-          arrayLength += plusX;
-          hasBeenAdded += plusX;
-          arrayMain = Resize(arrayLength);
-          ArrayPrinter();
-          if (!SearchButton.Visible)
-          {
-            SearchOut.Visible = true;
-            SearchButton.Visible = true;
-          }
+          SearchOut.Visible = true;
+          SearchButton.Visible = true;
         }
+      }
     }
 
     private void MinusButton_Click(object sender, EventArgs e)
@@ -235,7 +237,9 @@ namespace Лабораторная_4
       if (arrayLength != 0)
       {
         if (hasBeenAdded == 0)
-          MessageBox.Show("Либо массива нет, либо после добавления элементов вы нажали сортировку.", "Ошибка");
+          MessageBox.Show("Либо массива нет, либо нет новых элементов, либо после добавления элементов вы нажали сортировку.", "Ошибка");
+        else
+          isSorted = false;
         for (int i = arrayLength - hasBeenAdded; i < arrayLength; i++)
         {
           if (arrayMain[i] == 0)
@@ -248,27 +252,40 @@ namespace Лабораторная_4
 
     private void SearchButton_Click(object sender, EventArgs e)
     {
-      int theNumber;
-      int counter = 0;
-      bool isCorrect = int.TryParse(textBox1.Text, out theNumber);
+      int number;
+      bool isCorrect = int.TryParse(textBox1.Text, out number);
+      int i = -1;
       if (isCorrect)
       {
-        for (int i = 0; i < arrayLength; i++)
-          if (arrayMain[i] == theNumber)
-            counter++;
+        for (i = 0; i < arrayLength && arrayMain[i] % 2 != 0; i++) ;
+        if (i == arrayMain.Length || arrayMain[i] % 2 != 0)
+          i = -1;
       }
-      SearchOut.Text = ("Количество совпадений: " + counter);
+      if (i < 0)
+        SearchOut.Text = "Элемент не найден.";
+      else
+        SearchOut.Text = "Первый чётный элемент: " + (i + 1);
     }
 
     private void ReverseButton_Click(object sender, EventArgs e)
     {
       if (arrayLength != 0)
       {
-        Array.Reverse(arrayMain);
+        isSorted = false;
+        arrayMain = Reverse(arrayMain);
         ArrayPrinter();
       }
       else
         MessageBox.Show("Массива нет.", "Ошибка");
+    }
+
+    static int[] Reverse(int[] array)
+    {
+      int j = arrayMain.Length - 1;
+      array = new int[j + 1];
+      for (int i = 0; i < arrayMain.Length; i++, j--)
+        array[i] = arrayMain[j];
+      return array;
     }
 
     private void SortButton_Click(object sender, EventArgs e)
@@ -294,9 +311,9 @@ namespace Лабораторная_4
     {
       if (arrayLength != 0)
       {
-        HandWriteForm gg = new HandWriteForm();
-        gg.ShowDialog();
-        gg.Dispose();
+        HandWriteForm form = new HandWriteForm();
+        form.ShowDialog();
+        form.Dispose();
         ArrayPrinter();
       }
       else
@@ -311,9 +328,11 @@ namespace Лабораторная_4
         number = BinarySearch(number, 0, arrayLength);
         if (number > -1)
           BinarySearchLabel.Text = "Номер искомого элемента: " + Convert.ToString(number + 1);
-        else 
+        else
           BinarySearchLabel.Text = "Элемент не найден";
       }
+      else
+        MessageBox.Show("Либо массив не отсортирован, либо введённое значение не соответствует типу integer в пределах (-100;100).", "Ошибка");
     }
 
     static int BinarySearch(int searchedNumber, int indexLeft, int indexRight)
