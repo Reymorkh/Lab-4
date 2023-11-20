@@ -252,15 +252,10 @@ namespace Лабораторная_4
 
     private void SearchButton_Click(object sender, EventArgs e)
     {
-      int number;
-      bool isCorrect = int.TryParse(textBox1.Text, out number);
-      int i = -1;
-      if (isCorrect)
-      {
-        for (i = 0; i < arrayLength && arrayMain[i] % 2 != 0; i++) ;
-        if (i == arrayMain.Length || arrayMain[i] % 2 != 0)
-          i = -1;
-      }
+      int i;
+      for (i = 0; i < arrayLength && arrayMain[i] % 2 != 0; i++) ;
+      if (i == arrayMain.Length || arrayMain[i] % 2 != 0)
+        i = -1;
       if (i < 0)
         SearchOut.Text = "Элемент не найден.";
       else
