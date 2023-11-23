@@ -20,6 +20,7 @@ namespace Лабораторная_4
     public static int index1 = -1, index2 = -1;
     public List<Button> buttons = new List<Button>();
     public int fromTop = 100, fromLeft = 10, tabindex = 8, nameint = 0;
+    bool swapMode = false;
 
     public Tasks345Form()
     {
@@ -36,47 +37,49 @@ namespace Лабораторная_4
     private void ButtonOnClick(object sender, EventArgs eventArgs)
     {
       var button = (Button)sender;
-      DialogResult dialogResult = MessageBox.Show("Вы хотите перезаписать значение выбранного элемента массива?" + Environment.NewLine +
-          "При выборе варианта нет кнопка будет отмечена для обмена значениями." + Environment.NewLine +
-          "При выборе отмены это окно закроется.", "Ща будет сложно", MessageBoxButtons.YesNoCancel);
-      if (dialogResult == DialogResult.No)
+      switch (swapMode)
       {
+        case true:
+          {
 
-        if (button != null)
-        {
-          buttons.IndexOf(button);
-          if (a == "-101")
-          {
-            a = button.Text;
-            index1 = buttons.IndexOf(button);
-          }
-          else
-          if (b == "-101")
-          {
-            b = button.Text;
-            index2 = buttons.IndexOf(button);
-          }
-          if (a != "-101" && b != "-101")
-          {
-            (MainMenuForm.arrayMain[index1], MainMenuForm.arrayMain[index2]) = (MainMenuForm.arrayMain[index2], MainMenuForm.arrayMain[index1]);
-            (buttons[index1].Text, buttons[index2].Text) = (buttons[index2].Text, buttons[index1].Text);
+            if (button != null)
+            {
+              buttons.IndexOf(button);
+              if (a == "-101")
+              {
+                a = button.Text;
+                index1 = buttons.IndexOf(button);
+              }
+              else
+              if (b == "-101" && a != button.Text)
+              {
+                b = button.Text;
+                index2 = buttons.IndexOf(button);
+              }
+              if (a != "-101" && b != "-101")
+              {
+                (MainMenuForm.arrayMain[index1], MainMenuForm.arrayMain[index2]) = (MainMenuForm.arrayMain[index2], MainMenuForm.arrayMain[index1]);
+                (buttons[index1].Text, buttons[index2].Text) = (buttons[index2].Text, buttons[index1].Text);
 
-            a = "-101";
-            b = "-101";
-            index1 = -1;
-            index2 = -1;
+                a = "-101";
+                b = "-101";
+                index1 = -1;
+                index2 = -1;
+              }
+            }
           }
-        }
-      }
-      if (dialogResult == DialogResult.Yes)
-      {
-        RewriteForm.index = buttons.IndexOf(button);
-        RewriteForm gg = new RewriteForm();
-        gg.ShowDialog();
-        gg.Dispose();
-        ButtonRewrite();
-        //ButtonEraser();
-        //ButtonPrinter();
+          break;
+        case false:
+          {
+            RewriteForm.index = buttons.IndexOf(button);
+            RewriteForm gg = new RewriteForm();
+            gg.ShowDialog();
+            gg.Dispose();
+            ButtonRewrite();
+            //ButtonEraser();
+            //ButtonPrinter();
+          }
+          break;
       }
     }
 
@@ -103,7 +106,7 @@ namespace Лабораторная_4
           "AddX - добавляет введённое количество чисел в начало массиво." + Environment.NewLine +
           "Del - удаляет введённый номер элемента из массива." + Environment.NewLine +
           "DelMax - удаляет максимальный элемент из массива" + Environment.NewLine + Environment.NewLine +
-          "Для оперестановки элементов нажмите на оба элемента, которые хотите поменять местами.", "Help");
+          "Для входа в режим перестановки элементов поставьте галочки напротив соответствующего режима.", "Help");
     }
 
     private void DeleteButton_Click(object sender, EventArgs e)
@@ -148,7 +151,7 @@ namespace Лабораторная_4
         }
         MainMenuForm.arrayLength--;
         for (int i = index; i < MainMenuForm.arrayLength; i++)
-          (MainMenuForm.arrayMain[i],MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
+          (MainMenuForm.arrayMain[i], MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
         MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
         if (MainMenuForm.arrayLength != 0)
           ButtonIndexEraser(MainMenuForm.arrayLength);
@@ -198,6 +201,7 @@ namespace Лабораторная_4
 
       Button newButton = new Button();
       newButton.Location = new Point(fromLeft, fromTop);
+
       if (fromLeft < 550)
       {
         fromLeft += 60;
@@ -244,6 +248,20 @@ namespace Лабораторная_4
       {
         fromLeft = 550;
         fromTop -= 40;
+      }
+    }
+
+    private void SwapModeCheckbox_CheckedChanged(object sender, EventArgs e)
+    {
+      switch(swapMode)
+      {
+        case (true):
+          swapMode = false;
+          a = b;
+          break;
+        case false:
+          swapMode = true;
+          break;
       }
     }
   }

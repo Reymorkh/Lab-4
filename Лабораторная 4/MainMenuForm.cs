@@ -61,12 +61,12 @@ namespace Лабораторная_4
 
     void ArrayPrinter()
     {
-      MainWindow.Text = "Длина массива записана как: " + arrayLength + Environment.NewLine;
+      MainWindow.Text = "Длина массива записана как: " + arrayLength + Environment.NewLine + 1 + ". ";
       if (arrayLength != 0)
       {
         for (int i = 0; i < arrayLength; i += 10)
-          if (arrayLength > +i + 10)
-            MainWindow.Text += RowPrint(i, i + 10) + Environment.NewLine;
+          if (arrayLength > i + 10)
+            MainWindow.Text += RowPrint(i, i + 10) + Environment.NewLine + (i /10 + 2) + ". ";
           else
             MainWindow.Text += RowPrint(i, arrayLength);
         //for (int i = 0; i < arrayMain.Length; i++)
@@ -306,7 +306,7 @@ namespace Лабораторная_4
     {
       if (arrayLength != 0)
       {
-        HandWriteForm form = new HandWriteForm();
+        ArrayRewriteForm form = new ArrayRewriteForm();
         form.ShowDialog();
         form.Dispose();
         ArrayPrinter();

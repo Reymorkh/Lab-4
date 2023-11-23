@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Лабораторная_4
 {
-  public partial class HandWriteForm : Form
+  public partial class ArrayRewriteForm : Form
   {
     public int arrayLength, countdown;
     DialogResult dialogResult;
@@ -52,7 +52,7 @@ namespace Лабораторная_4
       }
     }
 
-    public HandWriteForm()
+    public ArrayRewriteForm()
     {
       InitializeComponent();
       arrayLength = 0;
@@ -120,4 +120,3 @@ namespace Лабораторная_4
     }
   }
 }
-    

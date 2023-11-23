@@ -37,7 +37,6 @@
       MinusButton = new Button();
       PlusButton = new Button();
       label1 = new Label();
-      coolLabel = new Label();
       label2 = new Label();
       NullRandom = new Button();
       SearchButton = new Button();
@@ -53,11 +52,11 @@
       // 
       // PlaceSwapper
       // 
-      PlaceSwapper.Location = new Point(645, 427);
+      PlaceSwapper.Location = new Point(583, 319);
       PlaceSwapper.Name = "PlaceSwapper";
-      PlaceSwapper.Size = new Size(126, 23);
+      PlaceSwapper.Size = new Size(126, 69);
       PlaceSwapper.TabIndex = 0;
-      PlaceSwapper.Text = "Переход 3,4,5";
+      PlaceSwapper.Text = "Добавление Удаление Перестановка элементов";
       PlaceSwapper.UseVisualStyleBackColor = true;
       PlaceSwapper.Click += PlaceSwapper_Click;
       // 
@@ -104,7 +103,7 @@
       // 
       // RandomFiller
       // 
-      RandomFiller.Location = new Point(645, 50);
+      RandomFiller.Location = new Point(583, 50);
       RandomFiller.Name = "RandomFiller";
       RandomFiller.Size = new Size(126, 23);
       RandomFiller.TabIndex = 4;
@@ -141,15 +140,6 @@
       label1.TabIndex = 9;
       label1.Text = "Кнопка Enter приравнивает длину последовательности к указанному значению.";
       // 
-      // coolLabel
-      // 
-      coolLabel.AutoSize = true;
-      coolLabel.Location = new Point(645, 406);
-      coolLabel.Name = "coolLabel";
-      coolLabel.Size = new Size(123, 15);
-      coolLabel.TabIndex = 10;
-      coolLabel.Text = "Самая крутая кнопка";
-      // 
       // label2
       // 
       label2.AutoSize = true;
@@ -161,7 +151,7 @@
       // 
       // NullRandom
       // 
-      NullRandom.Location = new Point(645, 79);
+      NullRandom.Location = new Point(583, 79);
       NullRandom.Name = "NullRandom";
       NullRandom.Size = new Size(126, 23);
       NullRandom.TabIndex = 12;
@@ -171,7 +161,7 @@
       // 
       // SearchButton
       // 
-      SearchButton.Location = new Point(645, 234);
+      SearchButton.Location = new Point(583, 234);
       SearchButton.Name = "SearchButton";
       SearchButton.Size = new Size(123, 23);
       SearchButton.TabIndex = 13;
@@ -183,7 +173,7 @@
       // SearchOut
       // 
       SearchOut.AutoSize = true;
-      SearchOut.Location = new Point(596, 275);
+      SearchOut.Location = new Point(534, 275);
       SearchOut.Name = "SearchOut";
       SearchOut.Size = new Size(156, 15);
       SearchOut.TabIndex = 14;
@@ -192,7 +182,7 @@
       // 
       // ReverseButton
       // 
-      ReverseButton.Location = new Point(645, 108);
+      ReverseButton.Location = new Point(583, 108);
       ReverseButton.Name = "ReverseButton";
       ReverseButton.Size = new Size(126, 23);
       ReverseButton.TabIndex = 15;
@@ -202,7 +192,7 @@
       // 
       // SortButton
       // 
-      SortButton.Location = new Point(645, 137);
+      SortButton.Location = new Point(583, 137);
       SortButton.Name = "SortButton";
       SortButton.Size = new Size(126, 23);
       SortButton.TabIndex = 16;
@@ -212,7 +202,7 @@
       // 
       // ArrayEnterButton
       // 
-      ArrayEnterButton.Location = new Point(645, 21);
+      ArrayEnterButton.Location = new Point(583, 21);
       ArrayEnterButton.Name = "ArrayEnterButton";
       ArrayEnterButton.Size = new Size(123, 23);
       ArrayEnterButton.TabIndex = 17;
@@ -222,7 +212,7 @@
       // 
       // BinarySearchButton
       // 
-      BinarySearchButton.Location = new Point(645, 166);
+      BinarySearchButton.Location = new Point(583, 166);
       BinarySearchButton.Name = "BinarySearchButton";
       BinarySearchButton.Size = new Size(126, 23);
       BinarySearchButton.TabIndex = 18;
@@ -232,7 +222,7 @@
       // 
       // BinarySearchBox
       // 
-      BinarySearchBox.Location = new Point(596, 166);
+      BinarySearchBox.Location = new Point(534, 166);
       BinarySearchBox.MaxLength = 4;
       BinarySearchBox.Name = "BinarySearchBox";
       BinarySearchBox.Size = new Size(43, 23);
@@ -241,18 +231,18 @@
       // BinarySearchLabel
       // 
       BinarySearchLabel.AutoSize = true;
-      BinarySearchLabel.Location = new Point(596, 205);
+      BinarySearchLabel.Location = new Point(534, 205);
       BinarySearchLabel.Name = "BinarySearchLabel";
       BinarySearchLabel.Size = new Size(156, 15);
       BinarySearchLabel.TabIndex = 20;
-      BinarySearchLabel.Text = "Пока поиск не проводился";
+      BinarySearchLabel.Text = "Поиск пока не проводился";
       // 
       // MainMenuForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
       BackgroundImageLayout = ImageLayout.Center;
-      ClientSize = new Size(781, 483);
+      ClientSize = new Size(719, 483);
       Controls.Add(BinarySearchLabel);
       Controls.Add(BinarySearchBox);
       Controls.Add(BinarySearchButton);
@@ -263,7 +253,6 @@
       Controls.Add(SearchButton);
       Controls.Add(NullRandom);
       Controls.Add(label2);
-      Controls.Add(coolLabel);
       Controls.Add(label1);
       Controls.Add(PlusButton);
       Controls.Add(MinusButton);
@@ -290,7 +279,6 @@
     private Button MinusButton;
     private Button PlusButton;
     private Label label1;
-    private Label coolLabel;
     private Label label2;
     private Button NullRandom;
     private Button SearchButton;

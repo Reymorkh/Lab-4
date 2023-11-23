@@ -1,6 +1,6 @@
 ﻿namespace Лабораторная_4
 {
-  partial class HandWriteForm
+  partial class ArrayRewriteForm
   {
     /// <summary>
     /// Required designer variable.
@@ -71,7 +71,7 @@
       MainWindow.TabIndex = 4;
       MainWindow.Text = "Вам осталось ввести x элементов";
       // 
-      // HandWriteForm
+      // ArrayRewriteForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
@@ -80,9 +80,9 @@
       Controls.Add(textBox1);
       Controls.Add(SkipButton);
       Controls.Add(EnterButton);
-      Name = "HandWriteForm";
+      Name = "ArrayRewriteForm";
       StartPosition = FormStartPosition.CenterScreen;
-      Text = "Form4";
+      Text = "Окно перезаписи массива";
       ResumeLayout(false);
       PerformLayout();
     }
