@@ -107,7 +107,7 @@ namespace Лабораторная_4
       Tasks345Form f = new Tasks345Form();
       f.ShowDialog();
       f.Dispose();
-      if (arrayLength!= 0 && !EvenSearchButton.Visible)
+      if (arrayLength != 0 && !EvenSearchButton.Visible)
       {
         EvenSearchButton.Visible = true;
         EvenSearchLabel.Visible = true;
@@ -156,7 +156,7 @@ namespace Лабораторная_4
         else if (arrayMain.Length - arrayLength > hasBeenAdded)
           hasBeenAdded = 0;
         else
-          hasBeenAdded -=  arrayMain.Length - arrayLength;
+          hasBeenAdded -= arrayMain.Length - arrayLength;
 
         isSorted = false;
         arrayLength = Convert.ToInt32(textBox1.Text);
@@ -280,7 +280,7 @@ namespace Лабораторная_4
     {
       int i;
       for (i = 0; i < arrayLength && arrayMain[i] % 2 != 0; i++) ;
-      if (i == arrayMain.Length || arrayMain[i] % 2 != 0)
+      if (arrayMain[i] % 2 != 0)
         i = -1;
       if (i < 0)
         EvenSearchLabel.Text = "Элемент не найден.";
@@ -340,9 +340,9 @@ namespace Лабораторная_4
       int number;
       if (isSorted && int.TryParse(BinarySearchBox.Text, out number))
       {
-        number = BinarySearch(number, 0, arrayLength);
-        if (number > -1)
-          BinarySearchLabel.Text = "Номер искомого элемента: " + Convert.ToString(number + 1);
+        int index = BinarySearch(number, 0, arrayLength);
+        if (index > -1)
+          BinarySearchLabel.Text = $"Номер искомого элемента {index}: " + Convert.ToString(number + 1);
         else
           BinarySearchLabel.Text = "Элемент не найден";
       }
@@ -354,18 +354,18 @@ namespace Лабораторная_4
     {
       while (indexLeft <= indexRight)
       {
-        var middle = (indexLeft + indexRight) / 2;
-        if (searchedNumber == arrayMain[middle])
+        int index = (indexLeft + indexRight) / 2;
+        if (searchedNumber == arrayMain[index])
         {
-          return middle;
+          return index;
         }
-        else if (searchedNumber < arrayMain[middle])
+        else if (searchedNumber < arrayMain[index])
         {
-          indexRight = middle - 1;
+          indexRight = index - 1;
         }
         else
         {
-          indexLeft = middle + 1;
+          indexLeft = index + 1;
         }
       }
       return -1;

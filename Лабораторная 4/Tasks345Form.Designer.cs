@@ -83,7 +83,7 @@
       AddMax.TabIndex = 4;
       AddMax.Text = "AddStart";
       AddMax.UseVisualStyleBackColor = true;
-      AddMax.Click += AddStart_Click;
+      AddMax.Click += AddToStart_Click;
       // 
       // DelMax
       // 

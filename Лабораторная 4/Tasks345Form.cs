@@ -44,7 +44,6 @@ namespace Лабораторная_4
 
             if (button != null)
             {
-              buttons.IndexOf(button);
               if (a == "-101")
               {
                 a = button.Text;
@@ -56,6 +55,7 @@ namespace Лабораторная_4
                 b = button.Text;
                 index2 = buttons.IndexOf(button);
               }
+
               if (a != "-101" && b != "-101")
               {
                 (MainMenuForm.arrayMain[index1], MainMenuForm.arrayMain[index2]) = (MainMenuForm.arrayMain[index2], MainMenuForm.arrayMain[index1]);
@@ -83,22 +83,6 @@ namespace Лабораторная_4
       }
     }
 
-    private void AddToEndButton_Click(object sender, EventArgs e)
-    {
-      int x;
-      if (int.TryParse(textBox1.Text, out x) && x > -100 && x < 100)
-      {
-        x = Convert.ToInt32(textBox1.Text);
-        MainMenuForm.arrayLength++;
-        MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
-        MainMenuForm.arrayMain[MainMenuForm.arrayLength - 1] = x;
-        AddButton(MainMenuForm.arrayLength - 1);
-        ButtonRewrite();
-      }
-      else
-        MessageBox.Show("Введённые данныене являются числом в пределах (-100;100).", "Предупреждение");
-    }
-
     private void GuideButton_Click(object sender, EventArgs e)
     {
       MessageBox.Show("AddStart - добавляет введённое число в начало массива" + Environment.NewLine +
@@ -109,38 +93,63 @@ namespace Лабораторная_4
           "Для входа в режим перестановки элементов поставьте галочки напротив соответствующего режима.", "Help");
     }
 
-    private void DeleteButton_Click(object sender, EventArgs e)
+    private void AddToStart_Click(object sender, EventArgs e)
     {
-      int x;
-      if (int.TryParse(textBox1.Text, out x))
+      int number;
+      if (int.TryParse(textBox1.Text, out number) && number > -100 && number < 100)
       {
-        x = Convert.ToInt32(textBox1.Text);
-        if (x > 0 && x <= MainMenuForm.arrayLength)
-        {
-          x = Convert.ToInt32(textBox1.Text);
-          MainMenuForm.arrayMain[x - 1] = 0;
-          for (int i = x - 1; i < MainMenuForm.arrayLength - 1; i++)
-            MainMenuForm.arrayMain[i] = MainMenuForm.arrayMain[i + 1];
-          MainMenuForm.arrayLength--;
-          MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
-          if (MainMenuForm.arrayLength != 0)
-            ButtonIndexEraser(MainMenuForm.arrayLength);
-          else
-            ButtonIndexEraser(0);
-          ButtonRewrite();
-        }
-        else
-          MessageBox.Show("Вы ввели число за границами массива.", "Предупреждение");
+        MainMenuForm.arrayLength++;
+        MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
+        MainMenuForm.arrayMain[MainMenuForm.arrayLength - 1] = number;
+        for (int i = MainMenuForm.arrayLength - 2; i > -1; i--)
+          (MainMenuForm.arrayMain[i], MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
+        AddButton(MainMenuForm.arrayLength - 1);
+        ButtonRewrite();
       }
       else
-        MessageBox.Show("Нечисло.", "Предупреждение");
+        MessageBox.Show("Введённые данныене являются числом в пределах (-100;100).", "Предупреждение");
+    }
+
+    private void AddToEndButton_Click(object sender, EventArgs e)
+    {
+      int number;
+      if (int.TryParse(textBox1.Text, out number) && number > -100 && number < 100)
+      {
+        number = Convert.ToInt32(textBox1.Text);
+        MainMenuForm.arrayLength++;
+        MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
+        MainMenuForm.arrayMain[MainMenuForm.arrayLength - 1] = number;
+        AddButton(MainMenuForm.arrayLength - 1);
+        ButtonRewrite();
+      }
+      else
+        MessageBox.Show("Введённые данныене являются числом в пределах (-100;100).", "Предупреждение");
+    }
+
+    private void DeleteButton_Click(object sender, EventArgs e)
+    {
+      int index;
+      if (int.TryParse(textBox1.Text, out index) && index > 0 && index <= MainMenuForm.arrayLength)
+      {
+        for (int i = index - 1; i < MainMenuForm.arrayLength - 1; i++)
+          MainMenuForm.arrayMain[i] = MainMenuForm.arrayMain[i + 1];
+        MainMenuForm.arrayLength--;
+        MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
+        if (MainMenuForm.arrayLength != 0)
+          ButtonSingularEraser(MainMenuForm.arrayLength);
+        else
+          ButtonSingularEraser(0);
+        ButtonRewrite();
+      }
+      else
+        MessageBox.Show("Вы ввели число за границами массива.", "Предупреждение");
     }
 
     private void DelMax_Click(object sender, EventArgs e)
     {
       if (MainMenuForm.arrayLength != 0)
       {
-        int max = -101, index = 0;
+        int max = -101, index = -1;
         for (int i = 0; i < MainMenuForm.arrayLength; i++)
         {
           if (max < MainMenuForm.arrayMain[i])
@@ -154,31 +163,13 @@ namespace Лабораторная_4
           (MainMenuForm.arrayMain[i], MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
         MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
         if (MainMenuForm.arrayLength != 0)
-          ButtonIndexEraser(MainMenuForm.arrayLength);
+          ButtonSingularEraser(MainMenuForm.arrayLength);
         else
-          ButtonIndexEraser(0);
+          ButtonSingularEraser(0);
         ButtonRewrite();
       }
       else
         MessageBox.Show("Массива нет.", "Предупреждение");
-    }
-
-    private void AddStart_Click(object sender, EventArgs e)
-    {
-      int x;
-      bool isCorrect = int.TryParse(textBox1.Text, out x);
-      if (isCorrect)
-      {
-        MainMenuForm.arrayLength++;
-        MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
-        MainMenuForm.arrayMain[MainMenuForm.arrayLength - 1] = x;
-        for (int i = MainMenuForm.arrayLength - 2; i > -1; i--)
-          (MainMenuForm.arrayMain[i], MainMenuForm.arrayMain[i + 1]) = (MainMenuForm.arrayMain[i + 1], MainMenuForm.arrayMain[i]);
-        AddButton(MainMenuForm.arrayLength - 1);
-        ButtonRewrite();
-      }
-      else
-        MessageBox.Show("Введённые данныене являются числом в пределах (-100;100).", "Предупреждение");
     }
 
     private void Addx_Click(object sender, EventArgs e)
@@ -239,7 +230,7 @@ namespace Лабораторная_4
         AddButton(i);
     }
 
-    public void ButtonIndexEraser(int i)
+    public void ButtonSingularEraser(int i)
     {
       buttons[i].Dispose();
       buttons.RemoveAt(i);
