@@ -5,7 +5,7 @@ namespace Лабораторная_4
 {
   public partial class MainMenuForm : Form
   {
-    public static int arrayLength = 0, cycleRight, cycleDown;
+    public static int arrayLength = 0;
     public static int[] arrayMain = new int[0];
     static Random random = new Random();
     int hasBeenAdded = 0;
@@ -19,19 +19,19 @@ namespace Лабораторная_4
       return array;
     }
 
-    int Partition(int[] array, int minIndex, int maxIndex)
+    int Partition(int[] array, int indexLeft, int indexRight)
     {
-      var pen = minIndex - 1;
-      for (var i = minIndex; i < maxIndex; i++)
+      int pen = indexLeft - 1;
+      for (int i = indexLeft; i < indexRight; i++)
       {
-        if (array[i] < array[maxIndex])
+        if (array[i] < array[indexRight])
         {
           pen++;
           (array[pen], array[i]) = (array[i], array[pen]);
         }
       }
       pen++;
-      (array[pen], array[maxIndex]) = (array[maxIndex], array[pen]);
+      (array[pen], array[indexRight]) = (array[indexRight], array[pen]);
       return pen;
     }
 
@@ -41,14 +41,14 @@ namespace Лабораторная_4
       {
         return array; //финальная сдача массива
       }
-      var pivotIndex = Partition(array, indexLeft, indexRight); // определение опорного элемента в массиве и перестановка
-      HoarahSort(array, indexLeft, pivotIndex - 1); // сорт по краям от опорного элемента
-      HoarahSort(array, pivotIndex + 1, indexRight); // сорт по краям от опорного элемента
+      int pivotIndex = Partition(array, indexLeft, indexRight); // определение опорного элемента в массиве и перестановка
+      HoarahSort(array, indexLeft, pivotIndex - 1); // сорт по левому краю от опорного элемента
+      HoarahSort(array, pivotIndex + 1, indexRight); // сорт по правому краю от опорного элемента
 
       return array;
     }
 
-    static string RowPrint(int leftIndex, int rightIndex)
+    public static string RowPrint(int leftIndex, int rightIndex)
     {
       string row = String.Empty;
       for (int i = leftIndex; i < rightIndex; i++)
@@ -61,42 +61,40 @@ namespace Лабораторная_4
 
     void ArrayPrinter()
     {
-      MainWindow.Text = "Длина массива записана как: " + arrayLength + Environment.NewLine + 1 + ". ";
-      if (arrayLength != 0)
-      {
-        for (int i = 0; i < arrayLength; i += 10)
-          if (arrayLength > i + 10)
-            MainWindow.Text += RowPrint(i, i + 10) + Environment.NewLine + (i /10 + 2) + ". ";
-          else
-            MainWindow.Text += RowPrint(i, arrayLength);
-        //for (int i = 0; i < arrayMain.Length; i++)
-        //  if (arrayMain[i] != 0)
-        //    if (arrayMain[i] % 2 == 0)
-        //    {
-        //      MainWindow.Text += "Первое чётное число: " + arrayMain[i] + " с индексом: " + i + Environment.NewLine;
-        //      break;
-        //    }
-        //for (int i = 0; i < arrayLength - 10; i += 10)
-        //{
-        //  for (int j = 0; j < 10; j++)
-        //  {
-        //    MainWindow.Text += arrayMain[i + j] + " ";
-        //  }
-        //  MainWindow.Text += Environment.NewLine;
-        //}
-        //if (arrayLength % 10 != 0)
-        //  for (int j = arrayLength - arrayLength % 10; j < arrayLength; j++)
-        //  {
-        //    MainWindow.Text += arrayMain[j] + " ";
+      MainWindow.Text = "Длина массива записана как: " + arrayLength + Environment.NewLine + 1 + ".   ";
+      for (int i = 0; i < arrayLength; i += 10)
+        if (arrayLength > i + 10)
+          MainWindow.Text += RowPrint(i, i + 10) + Environment.NewLine + (i / 10 + 2) + ".   ";
+        else
+          MainWindow.Text += RowPrint(i, arrayLength);
+      //for (int i = 0; i < arrayMain.Length; i++)
+      //  if (arrayMain[i] != 0)
+      //    if (arrayMain[i] % 2 == 0)
+      //    {
+      //      MainWindow.Text += "Первое чётное число: " + arrayMain[i] + " с индексом: " + i + Environment.NewLine;
+      //      break;
+      //    }
+      //for (int i = 0; i < arrayLength - 10; i += 10)
+      //{
+      //  for (int j = 0; j < 10; j++)
+      //  {
+      //    MainWindow.Text += arrayMain[i + j] + " ";
+      //  }
+      //  MainWindow.Text += Environment.NewLine;
+      //}
+      //if (arrayLength % 10 != 0)
+      //  for (int j = arrayLength - arrayLength % 10; j < arrayLength; j++)
+      //  {
+      //    MainWindow.Text += arrayMain[j] + " ";
 
-        //  }
-        //else
-        //  for (int j = arrayLength - 10; j < arrayLength; j++)
-        //  {
-        //    MainWindow.Text += arrayMain[j] + " ";
+      //  }
+      //else
+      //  for (int j = arrayLength - 10; j < arrayLength; j++)
+      //  {
+      //    MainWindow.Text += arrayMain[j] + " ";
 
-        //  }
-      }
+      //  }
+
     }
 
     public MainMenuForm()
@@ -104,15 +102,31 @@ namespace Лабораторная_4
       InitializeComponent();
     }
 
-    private void PlaceSwapper_Click(object sender, EventArgs e)
+    void PlaceSwapper_Click(object sender, EventArgs e)
     {
       Tasks345Form f = new Tasks345Form();
       f.ShowDialog();
       f.Dispose();
+      if (arrayLength!= 0 && !EvenSearchButton.Visible)
+      {
+        EvenSearchButton.Visible = true;
+        EvenSearchLabel.Visible = true;
+        BinarySearchBox.Visible = true;
+        BinarySearchButton.Visible = true;
+        BinarySearchLabel.Visible = true;
+      }
+      else
+      {
+        EvenSearchButton.Visible = false;
+        EvenSearchLabel.Visible = false;
+        BinarySearchBox.Visible = false;
+        BinarySearchButton.Visible = false;
+        BinarySearchLabel.Visible = false;
+      }
       ArrayPrinter();
     }
 
-    private void textBox1_Enter(object sender, EventArgs e)
+    void textBox1_Enter(object sender, EventArgs e)
     {
       if (textBox1.Text == "Поле ввода")
       {
@@ -121,7 +135,7 @@ namespace Лабораторная_4
       }
     }
 
-    private void textBox1_Leave(object sender, EventArgs e)
+    void textBox1_Leave(object sender, EventArgs e)
     {
       if (textBox1.Text == "")
       {
@@ -130,26 +144,26 @@ namespace Лабораторная_4
       }
     }
 
-    private void MainButton_Click(object sender, EventArgs e)
+    void EnterButton_Click(object sender, EventArgs e)
     {
       bool arrayAssignCheck = false;
       if (arrayLength == 0)
         arrayAssignCheck = true;
       if (int.TryParse(textBox1.Text, out arrayLength))
       {
-        isSorted = false;
-        if (arrayLength < Convert.ToInt32(textBox1.Text))
-          hasBeenAdded -= arrayLength - Convert.ToInt32(textBox1.Text);
+        if (arrayLength > arrayMain.Length)
+          hasBeenAdded += arrayLength - arrayMain.Length;
+        else if (arrayMain.Length - arrayLength > hasBeenAdded)
+          hasBeenAdded = 0;
         else
-        if (arrayLength > Convert.ToInt32(textBox1.Text))
-          hasBeenAdded += Convert.ToInt32(textBox1.Text) - arrayLength;
+          hasBeenAdded -=  arrayMain.Length - arrayLength;
 
+        isSorted = false;
         arrayLength = Convert.ToInt32(textBox1.Text);
         arrayMain = Resize(arrayLength);
 
         if (arrayAssignCheck)
         {
-          hasBeenAdded += arrayLength;
           DialogResult dialogResult = MessageBox.Show("Вы инициализировали новый массив. Заполнить его?", "Notification.", MessageBoxButtons.YesNo);
           if (dialogResult == DialogResult.Yes)
           {
@@ -157,29 +171,35 @@ namespace Лабораторная_4
           }
         }
       }
+
       if (arrayLength == 0)
       {
-        SearchOut.Visible = false;
-        SearchButton.Visible = false;
+        EvenSearchLabel.Visible = false;
+        EvenSearchButton.Visible = false;
+        BinarySearchBox.Visible = false;
+        BinarySearchButton.Visible = false;
+        BinarySearchLabel.Visible = false;
       }
-      if (arrayLength > 0)
+      else
       {
-        SearchOut.Visible = true;
-        SearchButton.Visible = true;
-
+        EvenSearchLabel.Visible = true;
+        EvenSearchButton.Visible = true;
+        BinarySearchBox.Visible = true;
+        BinarySearchButton.Visible = true;
+        BinarySearchLabel.Visible = true;
       }
       ArrayPrinter();
     }
 
-    private void textBox1_KeyDown(object sender, KeyEventArgs e)
+    void TextBox1_KeyDown(object sender, KeyEventArgs e)
     {
       if (e.KeyCode == Keys.Enter)
       {
-        MainButton_Click(sender, e);
+        EnterButton_Click(sender, e);
       }
     }
 
-    private void RandomFiller_Click(object sender, EventArgs e)
+    void RandomFiller_Click(object sender, EventArgs e)
     {
       if (arrayLength != 0)
       {
@@ -194,7 +214,7 @@ namespace Лабораторная_4
         MessageBox.Show("Массива нет.", "Ошибка");
     }
 
-    private void PlusButton_Click(object sender, EventArgs e)
+    void PlusButton_Click(object sender, EventArgs e)
     {
       int plusX;
       if (int.TryParse(textBox1.Text, out plusX) && plusX + arrayLength < 2147483646)
@@ -204,15 +224,18 @@ namespace Лабораторная_4
         hasBeenAdded += plusX;
         arrayMain = Resize(arrayLength);
         ArrayPrinter();
-        if (!SearchButton.Visible)
+        if (!EvenSearchButton.Visible)
         {
-          SearchOut.Visible = true;
-          SearchButton.Visible = true;
+          EvenSearchLabel.Visible = true;
+          EvenSearchButton.Visible = true;
+          BinarySearchBox.Visible = true;
+          BinarySearchButton.Visible = true;
+          BinarySearchLabel.Visible = true;
         }
       }
     }
 
-    private void MinusButton_Click(object sender, EventArgs e)
+    void MinusButton_Click(object sender, EventArgs e)
     {
       int minusX;
       if (int.TryParse(textBox1.Text, out minusX))
@@ -223,8 +246,11 @@ namespace Лабораторная_4
           arrayMain = Resize(arrayLength);
           if (arrayLength == 0)
           {
-            SearchOut.Visible = false;
-            SearchButton.Visible = false;
+            EvenSearchLabel.Visible = false;
+            EvenSearchButton.Visible = false;
+            BinarySearchBox.Visible = false;
+            BinarySearchButton.Visible = false;
+            BinarySearchLabel.Visible = false;
           }
           ArrayPrinter();
         }
@@ -232,7 +258,7 @@ namespace Лабораторная_4
           MessageBox.Show("Либо нечисло, либо вы хотите вычесть больше, чем есть длины.", "Ошибка");
     }
 
-    private void NullRandom_Click(object sender, EventArgs e)
+    void FillNewRandom_Click(object sender, EventArgs e)
     {
       if (arrayLength != 0)
       {
@@ -250,40 +276,40 @@ namespace Лабораторная_4
       }
     }
 
-    private void SearchButton_Click(object sender, EventArgs e)
+    void SearchButton_Click(object sender, EventArgs e)
     {
       int i;
       for (i = 0; i < arrayLength && arrayMain[i] % 2 != 0; i++) ;
       if (i == arrayMain.Length || arrayMain[i] % 2 != 0)
         i = -1;
       if (i < 0)
-        SearchOut.Text = "Элемент не найден.";
+        EvenSearchLabel.Text = "Элемент не найден.";
       else
-        SearchOut.Text = "Первый чётный элемент: " + (i + 1);
+        EvenSearchLabel.Text = "Первый чётный элемент: " + (i + 1);
     }
 
-    private void ReverseButton_Click(object sender, EventArgs e)
+    void ReverseButton_Click(object sender, EventArgs e)
     {
       if (arrayLength != 0)
       {
         isSorted = false;
-        arrayMain = Reverse(arrayMain);
+        arrayMain = Reverse();
         ArrayPrinter();
       }
       else
         MessageBox.Show("Массива нет.", "Ошибка");
     }
 
-    static int[] Reverse(int[] array)
+    int[] Reverse()
     {
       int j = arrayMain.Length - 1;
-      array = new int[j + 1];
+      int[] array = new int[j + 1];
       for (int i = 0; i < arrayMain.Length; i++, j--)
         array[i] = arrayMain[j];
       return array;
     }
 
-    private void SortButton_Click(object sender, EventArgs e)
+    void SortButton_Click(object sender, EventArgs e)
     {
       if (arrayLength != 0)
       {
@@ -296,13 +322,7 @@ namespace Лабораторная_4
         MessageBox.Show("Массива нет.", "Ошибка");
     }
 
-    private void Form1_Enter(object sender, EventArgs e)
-    {
-      if (arrayLength != 0)
-        ArrayPrinter();
-    }
-
-    private void ArrayEnterButton_Click(object sender, EventArgs e)
+    void ArrayRewriteButton_Click(object sender, EventArgs e)
     {
       if (arrayLength != 0)
       {
@@ -315,7 +335,7 @@ namespace Лабораторная_4
         MessageBox.Show("Массив-то создайте.", "Ошибка");
     }
 
-    private void BinarySearchButton_Click(object sender, EventArgs e)
+    void BinarySearchButton_Click(object sender, EventArgs e)
     {
       int number;
       if (isSorted && int.TryParse(BinarySearchBox.Text, out number))
@@ -330,7 +350,7 @@ namespace Лабораторная_4
         MessageBox.Show("Либо массив не отсортирован, либо введённое значение не соответствует типу integer в пределах (-100;100).", "Ошибка");
     }
 
-    static int BinarySearch(int searchedNumber, int indexLeft, int indexRight)
+    int BinarySearch(int searchedNumber, int indexLeft, int indexRight)
     {
       while (indexLeft <= indexRight)
       {

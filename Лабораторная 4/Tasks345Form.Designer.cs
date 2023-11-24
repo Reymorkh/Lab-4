@@ -53,7 +53,7 @@
       addButton.TabIndex = 1;
       addButton.Text = "AddEnd";
       addButton.UseVisualStyleBackColor = true;
-      addButton.Click += AddButton_Click;
+      addButton.Click += AddToEndButton_Click;
       // 
       // guideButton
       // 

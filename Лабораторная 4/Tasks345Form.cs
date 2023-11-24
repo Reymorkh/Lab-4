@@ -34,7 +34,7 @@ namespace Лабораторная_4
         ButtonPrinterv3();
     }
 
-    private void ButtonOnClick(object sender, EventArgs eventArgs)
+    private void DynamicButtonOnClick(object sender, EventArgs eventArgs)
     {
       var button = (Button)sender;
       switch (swapMode)
@@ -83,10 +83,10 @@ namespace Лабораторная_4
       }
     }
 
-    private void AddButton_Click(object sender, EventArgs e)
+    private void AddToEndButton_Click(object sender, EventArgs e)
     {
       int x;
-      if (int.TryParse(textBox1.Text, out x))
+      if (int.TryParse(textBox1.Text, out x) && x > -100 && x < 100)
       {
         x = Convert.ToInt32(textBox1.Text);
         MainMenuForm.arrayLength++;
@@ -96,7 +96,7 @@ namespace Лабораторная_4
         ButtonRewrite();
       }
       else
-        MessageBox.Show("Нечисло.", "Предупреждение");
+        MessageBox.Show("Введённые данныене являются числом в пределах (-100;100).", "Предупреждение");
     }
 
     private void GuideButton_Click(object sender, EventArgs e)
@@ -177,13 +177,14 @@ namespace Лабораторная_4
         AddButton(MainMenuForm.arrayLength - 1);
         ButtonRewrite();
       }
+      else
+        MessageBox.Show("Введённые данныене являются числом в пределах (-100;100).", "Предупреждение");
     }
 
     private void Addx_Click(object sender, EventArgs e)
     {
       int x;
-      bool isCorrect = int.TryParse(textBox1.Text, out x);
-      if (isCorrect && x > 0)
+      if (int.TryParse(textBox1.Text, out x) && x > 0)
       {
         MainMenuForm.arrayLength += x;
         MainMenuForm.arrayMain = MainMenuForm.Resize(MainMenuForm.arrayLength);
@@ -194,6 +195,8 @@ namespace Лабораторная_4
           AddButton(i);
         ButtonRewrite();
       }
+      else
+        MessageBox.Show("Введённые данныене являются числом в пределах (-100;100).", "Предупреждение");
     }
 
     public void AddButton(int i)
@@ -216,7 +219,7 @@ namespace Лабораторная_4
       newButton.Size = new Size(40, 20);
       newButton.TabIndex = tabindex;
       tabindex++;
-      newButton.Click += ButtonOnClick;
+      newButton.Click += DynamicButtonOnClick;
       newButton.Text = Convert.ToString(MainMenuForm.arrayMain[i]);
       Controls.Add(newButton);
     } //работает великолепно

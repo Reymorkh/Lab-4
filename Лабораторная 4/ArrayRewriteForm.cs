@@ -13,62 +13,38 @@ namespace Лабораторная_4
 {
   public partial class ArrayRewriteForm : Form
   {
-    public int arrayLength, countdown;
-    DialogResult dialogResult;
+    public int arrayLength = 0, countdown = 0;
+    DialogResult realTimeMode;
 
-    public void ArrayPrinter(int arrayLengthLocal)
+    void ArrayPrinter()
     {
-      string[] text = new string[MainMenuForm.arrayLength];
-      text[0] = "Вам осталось " + (MainMenuForm.arrayLength - countdown) + " элементов. Вид массива прямо сейчас:" + Environment.NewLine;
-
-      if (arrayLength != 0 || arrayLengthLocal != 0)
+      MainWindow.Text = "Вам осталось " + (MainMenuForm.arrayLength - countdown) + " элементов.Вид массива прямо сейчас:" + Environment.NewLine;
+      switch (realTimeMode)
       {
-        int i;
-        for (i = 0; i < arrayLengthLocal - 10; i += 10)
-        {
-          for (int j = 0; j < 10; j++)
-          {
-            text[0] = "Вам осталось " + (MainMenuForm.arrayLength - countdown) + " элементов. Вид массива прямо сейчас:" + Environment.NewLine;
-            text[1 + i] += MainMenuForm.arrayMain[i + j] + " ";
-            MainWindow.Text = string.Join('\n', text);
-          }
-          text[1 + i] += Environment.NewLine;
-        }
-        i++;
-        if (arrayLengthLocal % 10 != 0)
-          for (int j = arrayLengthLocal - arrayLengthLocal % 10; j < arrayLengthLocal; j++)
-          {
-            text[0] = "Вам осталось " + (MainMenuForm.arrayLength - countdown) + " элементов. Вид массива прямо сейчас:" + Environment.NewLine;
-            text[1 + i] += MainMenuForm.arrayMain[j] + " ";
-            MainWindow.Text = string.Join('\n', text);
-          }
-        else
-          for (int j = arrayLengthLocal - 10; j < arrayLengthLocal; j++)
-          {
-            text[0] = "Вам осталось " + (arrayLength - countdown) + " элементов. Вид массива прямо сейчас:" + Environment.NewLine;
-            text[1 + i] += MainMenuForm.arrayMain[j] + " ";
-            MainWindow.Text = string.Join('\n', text);
-          }
+        case DialogResult.Yes:
+          for (int i = 0; i < arrayLength; i += 10)
+            if (arrayLength > i + 10)
+              MainWindow.Text += MainMenuForm.RowPrint(i, i + 10) + Environment.NewLine + (i / 10 + 2) + ".   ";
+            else
+              MainWindow.Text += MainMenuForm.RowPrint(i, arrayLength);
+          break;
+        case DialogResult.No:
+          for (int i = 0; i < MainMenuForm.arrayLength; i += 10)
+            if (MainMenuForm.arrayLength > i + 10)
+              MainWindow.Text += MainMenuForm.RowPrint(i, i + 10) + Environment.NewLine + (i / 10 + 2) + ".   ";
+            else
+              MainWindow.Text += MainMenuForm.RowPrint(i, MainMenuForm.arrayLength);
+          break;
       }
+
+      countdown++;
     }
 
     public ArrayRewriteForm()
     {
       InitializeComponent();
-      arrayLength = 0;
-      countdown = 0;
-      dialogResult = MessageBox.Show("Набирать массив по порядку ввода? При выборе нет массив будет напечатан постоянно и меняться в реальном времени.", "", MessageBoxButtons.YesNo);
-      MainWindow.Text = "Вам осталось " + Convert.ToString(MainMenuForm.arrayLength) + " элементов. Вид массива прямо сейчас:";
-      switch (dialogResult)
-      {
-        case DialogResult.Yes:
-          ArrayPrinter(arrayLength);
-          break;
-
-        case DialogResult.No:
-          ArrayPrinter(MainMenuForm.arrayLength);
-          break;
-      }
+      realTimeMode = MessageBox.Show("Набирать массив по порядку ввода? При выборе нет массив будет напечатан постоянно и меняться в реальном времени.", "", MessageBoxButtons.YesNo);
+      ArrayPrinter();
     }
 
     private void EnterButton_Click(object sender, EventArgs e)
@@ -81,23 +57,15 @@ namespace Лабораторная_4
           MainMenuForm.isSorted = false;
         MainMenuForm.arrayMain[arrayLength] = x;
         arrayLength++;
-        countdown++;
+        if (arrayLength == MainMenuForm.arrayLength)
+          this.Close();
+        ArrayPrinter();
+        textBox1.Text = "";
       }
       else
         MessageBox.Show("Введите число в диапазоне -100 < x < 100, либо попросите программиста переписать границы генерации чисел.", "Ошибка");
 
-      switch (dialogResult)
-      {
-        case DialogResult.Yes:
-          ArrayPrinter(arrayLength);
-          break;
-        case DialogResult.No:
-          ArrayPrinter(MainMenuForm.arrayLength);
-          break;
-      }
-      if (arrayLength == MainMenuForm.arrayLength)
-        this.Close();
-      textBox1.Text = "";
+
     }
 
     private void SkipButton_Click(object sender, EventArgs e)
@@ -105,18 +73,9 @@ namespace Лабораторная_4
       if (MainMenuForm.isSorted == true)
         MainMenuForm.isSorted = false;
       arrayLength++;
-      countdown++;
       if (arrayLength == MainMenuForm.arrayLength)
         this.Close();
-      switch (dialogResult)
-      {
-        case DialogResult.Yes:
-          ArrayPrinter(arrayLength);
-          break;
-        case DialogResult.No:
-          ArrayPrinter(MainMenuForm.arrayLength);
-          break;
-      }
+      ArrayPrinter();
     }
   }
 }

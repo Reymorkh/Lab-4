@@ -39,8 +39,8 @@
       label1 = new Label();
       label2 = new Label();
       NullRandom = new Button();
-      SearchButton = new Button();
-      SearchOut = new Label();
+      EvenSearchButton = new Button();
+      EvenSearchLabel = new Label();
       ReverseButton = new Button();
       SortButton = new Button();
       ArrayEnterButton = new Button();
@@ -71,7 +71,7 @@
       textBox1.TabIndex = 1;
       textBox1.Text = "Поле ввода";
       textBox1.Enter += textBox1_Enter;
-      textBox1.KeyDown += textBox1_KeyDown;
+      textBox1.KeyDown += TextBox1_KeyDown;
       textBox1.Leave += textBox1_Leave;
       // 
       // fileSystemWatcher1
@@ -87,7 +87,7 @@
       MainButton.TabIndex = 2;
       MainButton.Text = "Enter";
       MainButton.UseVisualStyleBackColor = true;
-      MainButton.Click += MainButton_Click;
+      MainButton.Click += EnterButton_Click;
       // 
       // MainWindow
       // 
@@ -157,28 +157,28 @@
       NullRandom.TabIndex = 12;
       NullRandom.Text = "Заполнить новые";
       NullRandom.UseVisualStyleBackColor = true;
-      NullRandom.Click += NullRandom_Click;
+      NullRandom.Click += FillNewRandom_Click;
       // 
       // SearchButton
       // 
-      SearchButton.Location = new Point(583, 234);
-      SearchButton.Name = "SearchButton";
-      SearchButton.Size = new Size(123, 23);
-      SearchButton.TabIndex = 13;
-      SearchButton.Text = "Поиск чётного";
-      SearchButton.UseVisualStyleBackColor = true;
-      SearchButton.Visible = false;
-      SearchButton.Click += SearchButton_Click;
+      EvenSearchButton.Location = new Point(583, 234);
+      EvenSearchButton.Name = "SearchButton";
+      EvenSearchButton.Size = new Size(123, 23);
+      EvenSearchButton.TabIndex = 13;
+      EvenSearchButton.Text = "Поиск чётного";
+      EvenSearchButton.UseVisualStyleBackColor = true;
+      EvenSearchButton.Visible = false;
+      EvenSearchButton.Click += SearchButton_Click;
       // 
       // SearchOut
       // 
-      SearchOut.AutoSize = true;
-      SearchOut.Location = new Point(534, 275);
-      SearchOut.Name = "SearchOut";
-      SearchOut.Size = new Size(156, 15);
-      SearchOut.TabIndex = 14;
-      SearchOut.Text = "Поиск пока не проводился";
-      SearchOut.Visible = false;
+      EvenSearchLabel.AutoSize = true;
+      EvenSearchLabel.Location = new Point(534, 275);
+      EvenSearchLabel.Name = "SearchOut";
+      EvenSearchLabel.Size = new Size(156, 15);
+      EvenSearchLabel.TabIndex = 14;
+      EvenSearchLabel.Text = "Поиск пока не проводился";
+      EvenSearchLabel.Visible = false;
       // 
       // ReverseButton
       // 
@@ -208,7 +208,7 @@
       ArrayEnterButton.TabIndex = 17;
       ArrayEnterButton.Text = "Вручную";
       ArrayEnterButton.UseVisualStyleBackColor = true;
-      ArrayEnterButton.Click += ArrayEnterButton_Click;
+      ArrayEnterButton.Click += ArrayRewriteButton_Click;
       // 
       // BinarySearchButton
       // 
@@ -218,6 +218,7 @@
       BinarySearchButton.TabIndex = 18;
       BinarySearchButton.Text = "Поиск";
       BinarySearchButton.UseVisualStyleBackColor = true;
+      BinarySearchButton.Visible = false;
       BinarySearchButton.Click += BinarySearchButton_Click;
       // 
       // BinarySearchBox
@@ -227,6 +228,7 @@
       BinarySearchBox.Name = "BinarySearchBox";
       BinarySearchBox.Size = new Size(43, 23);
       BinarySearchBox.TabIndex = 19;
+      BinarySearchBox.Visible = false;
       // 
       // BinarySearchLabel
       // 
@@ -236,6 +238,7 @@
       BinarySearchLabel.Size = new Size(156, 15);
       BinarySearchLabel.TabIndex = 20;
       BinarySearchLabel.Text = "Поиск пока не проводился";
+      BinarySearchLabel.Visible = false;
       // 
       // MainMenuForm
       // 
@@ -249,8 +252,8 @@
       Controls.Add(ArrayEnterButton);
       Controls.Add(SortButton);
       Controls.Add(ReverseButton);
-      Controls.Add(SearchOut);
-      Controls.Add(SearchButton);
+      Controls.Add(EvenSearchLabel);
+      Controls.Add(EvenSearchButton);
       Controls.Add(NullRandom);
       Controls.Add(label2);
       Controls.Add(label1);
@@ -281,8 +284,8 @@
     private Label label1;
     private Label label2;
     private Button NullRandom;
-    private Button SearchButton;
-    private Label SearchOut;
+    private Button EvenSearchButton;
+    private Label EvenSearchLabel;
     private Button ReverseButton;
     private Button SortButton;
     private Button ArrayEnterButton;

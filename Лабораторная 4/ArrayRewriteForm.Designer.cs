@@ -67,6 +67,7 @@
       MainWindow.Multiline = true;
       MainWindow.Name = "MainWindow";
       MainWindow.ReadOnly = true;
+      MainWindow.ScrollBars = ScrollBars.Both;
       MainWindow.Size = new Size(348, 172);
       MainWindow.TabIndex = 4;
       MainWindow.Text = "Вам осталось ввести x элементов";
