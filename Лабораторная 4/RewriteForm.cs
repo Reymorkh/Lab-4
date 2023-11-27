@@ -23,8 +23,7 @@ namespace Лабораторная_4
     {
       string text = textBox1.Text;
       int x;
-      bool isCorrect = int.TryParse(text, out x);
-      if (isCorrect && (x < 100) && (x > -100))
+      if (int.TryParse(text, out x) && (x < 100) && (x > -100))
       {
         MainMenuForm.arrayMain[index] = x;
         this.Close();

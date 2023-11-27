@@ -1,5 +1,8 @@
+using System.Diagnostics.Metrics;
 using System.Numerics;
+using System.Reflection;
 using System.Reflection.Metadata;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Лабораторная_4
 {
@@ -50,7 +53,7 @@ namespace Лабораторная_4
 
     public static string RowPrint(int leftIndex, int rightIndex)
     {
-      string row = String.Empty;
+      string row = System.String.Empty;
       for (int i = leftIndex; i < rightIndex; i++)
         if (i != rightIndex - 1)
           row += arrayMain[i] + " ";
@@ -279,13 +282,13 @@ namespace Лабораторная_4
     void SearchButton_Click(object sender, EventArgs e)
     {
       int i;
-      for (i = 0; i < arrayLength && arrayMain[i] % 2 != 0; i++) ;
+      for (i = 0; arrayMain[i] % 2 != 0 && i < arrayLength; i++);
       if (arrayMain[i] % 2 != 0)
         i = -1;
       if (i < 0)
-        EvenSearchLabel.Text = "Элемент не найден.";
+        EvenSearchLabel.Text = $"Элемент не найден.\nКоличество сравнений {i + 1}";
       else
-        EvenSearchLabel.Text = "Первый чётный элемент: " + (i + 1);
+        EvenSearchLabel.Text = $"Первый чётный элемент: {i + 1}\nКоличество сравнений {i + 1}";
     }
 
     void ReverseButton_Click(object sender, EventArgs e)
@@ -337,27 +340,24 @@ namespace Лабораторная_4
 
     void BinarySearchButton_Click(object sender, EventArgs e)
     {
-      int number;
-      if (isSorted && int.TryParse(BinarySearchBox.Text, out number))
+      if (isSorted && int.TryParse(BinarySearchBox.Text, out int number))
       {
-        int index = BinarySearch(number, 0, arrayLength);
-        if (index > -1)
-          BinarySearchLabel.Text = $"Номер искомого элемента {index}: " + Convert.ToString(number + 1);
-        else
-          BinarySearchLabel.Text = "Элемент не найден";
+        BinarySearchLabel.Text = BinarySearch(number, 0, arrayLength);
       }
       else
         MessageBox.Show("Либо массив не отсортирован, либо введённое значение не соответствует типу integer в пределах (-100;100).", "Ошибка");
     }
 
-    int BinarySearch(int searchedNumber, int indexLeft, int indexRight)
+    string BinarySearch(int searchedNumber, int indexLeft, int indexRight)
     {
+      int counter = 0;
       while (indexLeft <= indexRight)
       {
+        counter++;
         int index = (indexLeft + indexRight) / 2;
         if (searchedNumber == arrayMain[index])
         {
-          return index;
+          return $"Номер искомого элемента {Convert.ToString(searchedNumber)}: " + (index + 1)+ $"\nКоличество сравнений: {counter}";
         }
         else if (searchedNumber < arrayMain[index])
         {
@@ -368,7 +368,7 @@ namespace Лабораторная_4
           indexLeft = index + 1;
         }
       }
-      return -1;
+      return $"Элемент не найден\nКоличество понадобившихся сравнений: {counter}";
     }
   }
 }

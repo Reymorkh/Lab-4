@@ -30,7 +30,6 @@
     {
       PlaceSwapper = new Button();
       textBox1 = new TextBox();
-      fileSystemWatcher1 = new FileSystemWatcher();
       MainButton = new Button();
       MainWindow = new TextBox();
       RandomFiller = new Button();
@@ -47,7 +46,6 @@
       BinarySearchButton = new Button();
       BinarySearchBox = new TextBox();
       BinarySearchLabel = new Label();
-      ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
       SuspendLayout();
       // 
       // PlaceSwapper
@@ -73,11 +71,6 @@
       textBox1.Enter += textBox1_Enter;
       textBox1.KeyDown += TextBox1_KeyDown;
       textBox1.Leave += textBox1_Leave;
-      // 
-      // fileSystemWatcher1
-      // 
-      fileSystemWatcher1.EnableRaisingEvents = true;
-      fileSystemWatcher1.SynchronizingObject = this;
       // 
       // MainButton
       // 
@@ -159,10 +152,10 @@
       NullRandom.UseVisualStyleBackColor = true;
       NullRandom.Click += FillNewRandom_Click;
       // 
-      // SearchButton
+      // EvenSearchButton
       // 
       EvenSearchButton.Location = new Point(583, 234);
-      EvenSearchButton.Name = "SearchButton";
+      EvenSearchButton.Name = "EvenSearchButton";
       EvenSearchButton.Size = new Size(123, 23);
       EvenSearchButton.TabIndex = 13;
       EvenSearchButton.Text = "Поиск чётного";
@@ -170,11 +163,11 @@
       EvenSearchButton.Visible = false;
       EvenSearchButton.Click += SearchButton_Click;
       // 
-      // SearchOut
+      // EvenSearchLabel
       // 
       EvenSearchLabel.AutoSize = true;
       EvenSearchLabel.Location = new Point(534, 275);
-      EvenSearchLabel.Name = "SearchOut";
+      EvenSearchLabel.Name = "EvenSearchLabel";
       EvenSearchLabel.Size = new Size(156, 15);
       EvenSearchLabel.TabIndex = 14;
       EvenSearchLabel.Text = "Поиск пока не проводился";
@@ -245,7 +238,7 @@
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
       BackgroundImageLayout = ImageLayout.Center;
-      ClientSize = new Size(719, 483);
+      ClientSize = new Size(755, 483);
       Controls.Add(BinarySearchLabel);
       Controls.Add(BinarySearchBox);
       Controls.Add(BinarySearchButton);
@@ -267,7 +260,6 @@
       Name = "MainMenuForm";
       StartPosition = FormStartPosition.CenterScreen;
       Text = "Лабораторная работа №4";
-      ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
       ResumeLayout(false);
       PerformLayout();
     }
@@ -275,7 +267,6 @@
     #endregion
     private Button PlaceSwapper;
     private TextBox textBox1;
-    private FileSystemWatcher fileSystemWatcher1;
     private Button MainButton;
     private TextBox MainWindow;
     private Button RandomFiller;
