@@ -342,7 +342,7 @@ namespace Лабораторная_4
     {
       if (isSorted && int.TryParse(BinarySearchBox.Text, out int number))
       {
-        BinarySearchLabel.Text = BinarySearch(number, 0, arrayLength);
+        BinarySearchLabel.Text = BinarySearch(number, 0, arrayLength - 1);
       }
       else
         MessageBox.Show("Либо массив не отсортирован, либо введённое значение не соответствует типу integer в пределах (-100;100).", "Ошибка");
